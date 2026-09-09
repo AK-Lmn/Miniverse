@@ -1,0 +1,150 @@
+import type { AchievementDefinition, AggregateStats } from '../types'
+
+export const ACHIEVEMENTS: AchievementDefinition[] = [
+  {
+    id: 'first-game',
+    name: 'First Game',
+    description: 'Play your very first game.',
+    emoji: '🎮',
+    check: (s) => s.totalGamesPlayed >= 1,
+  },
+  {
+    id: 'getting-started',
+    name: 'Getting Started',
+    description: 'Play 5 games.',
+    emoji: '🌱',
+    check: (s) => s.totalGamesPlayed >= 5,
+    progress: (s) => ({ current: Math.min(s.totalGamesPlayed, 5), target: 5 }),
+  },
+  {
+    id: 'arcade-regular',
+    name: 'Arcade Regular',
+    description: 'Play 10 games.',
+    emoji: '🕹️',
+    check: (s) => s.totalGamesPlayed >= 10,
+    progress: (s) => ({ current: Math.min(s.totalGamesPlayed, 10), target: 10 }),
+  },
+  {
+    id: 'fifty-games',
+    name: '50 Games Played',
+    description: 'Play 50 games total.',
+    emoji: '🏟️',
+    check: (s) => s.totalGamesPlayed >= 50,
+    progress: (s) => ({ current: Math.min(s.totalGamesPlayed, 50), target: 50 }),
+  },
+  {
+    id: 'hundred-games',
+    name: '100 Games Played',
+    description: 'Play 100 games total.',
+    emoji: '🏆',
+    check: (s) => s.totalGamesPlayed >= 100,
+    progress: (s) => ({ current: Math.min(s.totalGamesPlayed, 100), target: 100 }),
+  },
+  {
+    id: 'high-scorer',
+    name: 'High Scorer',
+    description: 'Set a high score in any game.',
+    emoji: '⭐',
+    check: (s) => Object.keys(s.highScores).length >= 1,
+  },
+  {
+    id: 'well-rounded',
+    name: 'Well Rounded',
+    description: 'Play 5 different games at least once.',
+    emoji: '🎯',
+    check: (s) => Object.keys(s.gamesPlayedByGame).length >= 5,
+    progress: (s) => ({ current: Math.min(Object.keys(s.gamesPlayedByGame).length, 5), target: 5 }),
+  },
+  {
+    id: 'speed-demon',
+    name: 'Speed Demon',
+    description: 'React in under 250ms on the Reaction Test.',
+    emoji: '⚡',
+    check: (s) => (s.bestReactionMs ?? 9999) < 250,
+  },
+  {
+    id: 'word-wizard',
+    name: 'Word Wizard',
+    description: 'Type over 60 WPM on the Typing Test.',
+    emoji: '📝',
+    check: (s) => (s.bestWpm ?? 0) >= 60,
+  },
+  {
+    id: 'snake-master',
+    name: 'Snake Master',
+    description: 'Score 100+ in Snake.',
+    emoji: '🐍',
+    check: (s) => (s.highScores['snake'] ?? 0) >= 100,
+  },
+  {
+    id: 'tetris-master',
+    name: 'Tetris Master',
+    description: 'Score 5,000+ in Tetris.',
+    emoji: '🧱',
+    check: (s) => (s.highScores['tetris'] ?? 0) >= 5000,
+  },
+  {
+    id: 'puzzle-master',
+    name: 'Puzzle Master',
+    description: 'Win a game of Minesweeper on Expert.',
+    emoji: '🧩',
+    check: (s) => (s.highScores['minesweeper-expert'] ?? 0) > 0,
+  },
+  {
+    id: 'flappy-fan',
+    name: 'Flappy Fan',
+    description: 'Score 20+ in Flappy Bird.',
+    emoji: '🐤',
+    check: (s) => (s.highScores['flappy-bird'] ?? 0) >= 20,
+  },
+  {
+    id: 'daily-challenger',
+    name: 'Daily Challenger',
+    description: "Complete today's Daily Challenge.",
+    emoji: '📅',
+    check: (s) => s.dailyChallengesCompleted >= 1,
+  },
+  {
+    id: 'dedicated-player',
+    name: 'Dedicated Player',
+    description: 'Play for a total of 10 minutes.',
+    emoji: '⏱️',
+    check: (s) => s.totalPlayTimeSeconds >= 600,
+    progress: (s) => ({ current: Math.min(s.totalPlayTimeSeconds, 600), target: 600 }),
+  },
+  {
+    id: 'brick-buster',
+    name: 'Brick Buster',
+    description: 'Score 50+ in Breakout.',
+    emoji: '🧱',
+    check: (s) => (s.highScores['breakout'] ?? 0) >= 50,
+  },
+  {
+    id: 'galaxy-defender',
+    name: 'Galaxy Defender',
+    description: 'Score 500+ in Space Invaders.',
+    emoji: '👾',
+    check: (s) => (s.highScores['space-invaders'] ?? 0) >= 500,
+  },
+  {
+    id: 'theme-hopper',
+    name: 'Theme Hopper',
+    description: 'Try out all 3 visual themes.',
+    emoji: '🎨',
+    check: (s) => (s.themesUsedCount ?? 0) >= 3,
+  },
+  {
+    id: 'vault-master',
+    name: 'Vault Master',
+    description: 'Export your save data backup file.',
+    emoji: '💾',
+    check: (s) => Boolean(s.hasExportedData),
+  },
+]
+
+export function checkNewlyUnlocked(
+  stats: AggregateStats,
+  alreadyUnlocked: string[]
+): AchievementDefinition[] {
+  return ACHIEVEMENTS.filter((a) => !alreadyUnlocked.includes(a.id) && a.check(stats))
+}
