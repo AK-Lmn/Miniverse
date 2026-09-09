@@ -36,7 +36,7 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
-  // Show splash once per browser session
+
   const [showSplash, setShowSplash] = useState(() => {
     if (typeof sessionStorage === 'undefined') return false
     const shown = sessionStorage.getItem(SESSION_KEY)

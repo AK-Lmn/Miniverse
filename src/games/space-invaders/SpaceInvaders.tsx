@@ -74,7 +74,6 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
       }
     }
 
-    // Initialize 3 bunkers
     const bunkers: Bunker[] = []
     const bunkerW = 54
     const bunkerH = 28
@@ -112,7 +111,6 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
     setGameState('playing')
   }
 
-  // Touch/pointer controls for ship move
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current
     if (!canvas || !stateRef.current.active) return
@@ -129,7 +127,7 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
     const s = stateRef.current
     if (!s.active) return
     const now = Date.now()
-    if (now - s.lastShootTime < 280) return // Cooldown
+    if (now - s.lastShootTime < 280) return
     s.lastShootTime = now
 
     s.bullets.push({
@@ -141,7 +139,6 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
     playSfx('click', soundEnabled)
   }
 
-  // Keyboard events
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') stateRef.current.keys.left = true
@@ -164,7 +161,6 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
     }
   }, [soundEnabled])
 
-  // Game Loop
   useEffect(() => {
     if (gameState !== 'playing') return
     let animId: number
@@ -177,11 +173,9 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
 
       const s = stateRef.current
 
-      // Move player ship by keys
       if (s.keys.left) s.playerX = Math.max(0, s.playerX - 5)
       if (s.keys.right) s.playerX = Math.min(CANVAS_WIDTH - s.playerW, s.playerX + 5)
 
-      // Move Invaders
       let hitEdge = false
       let aliveCount = 0
 
@@ -194,7 +188,6 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
           hitEdge = true
         }
 
-        // Alien reaches ship line = Game Over
         if (inv.y + inv.h >= CANVAS_HEIGHT - 50) {
           s.active = false
           setGameState('gameover')
@@ -211,14 +204,12 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
         }
       }
 
-      // Next wave if all destroyed
       if (aliveCount === 0) {
         initGame(s.lives)
         s.invaderSpeed += 0.4
         playSfx('levelUp', soundEnabled)
       }
 
-      // Random Alien Laser Fire
       if (Math.random() < 0.025 && aliveCount > 0) {
         const aliveInvaders = s.invaders.filter((i) => i.alive)
         const randomInv = aliveInvaders[Math.floor(Math.random() * aliveInvaders.length)]
@@ -230,18 +221,15 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
         })
       }
 
-      // Update Bullets & Collisions
       for (let i = s.bullets.length - 1; i >= 0; i--) {
         const b = s.bullets[i]
         b.y += b.speed
 
-        // Out of bounds
         if (b.y < 0 || b.y > CANVAS_HEIGHT) {
           s.bullets.splice(i, 1)
           continue
         }
 
-        // Player bullet hits invader
         if (b.fromPlayer) {
           let hit = false
           for (const inv of s.invaders) {
@@ -265,7 +253,7 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
             continue
           }
         } else {
-          // Alien bullet hits player ship
+
           const playerY = CANVAS_HEIGHT - 35
           if (
             b.x >= s.playerX &&
@@ -289,7 +277,6 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
           }
         }
 
-        // Bullet hits bunker
         for (const bk of s.bunkers) {
           if (
             bk.hp > 0 &&
@@ -305,14 +292,11 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
         }
       }
 
-      // Draw Everything
       ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-      // Dark Space background with stars
       ctx.fillStyle = '#090D16'
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-      // Draw Invaders
       for (const inv of s.invaders) {
         if (!inv.alive) continue
         ctx.fillStyle = inv.color
@@ -324,7 +308,6 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
       }
       ctx.shadowBlur = 0
 
-      // Draw Bunkers
       for (const bk of s.bunkers) {
         if (bk.hp <= 0) continue
         ctx.fillStyle = `rgba(52, 211, 153, ${bk.hp / 6})`
@@ -333,13 +316,11 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
         ctx.fill()
       }
 
-      // Draw Bullets
       for (const b of s.bullets) {
         ctx.fillStyle = b.fromPlayer ? '#38BDF8' : '#F43F5E'
         ctx.fillRect(b.x - 2, b.y, 4, 10)
       }
 
-      // Draw Player Ship
       const playerY = CANVAS_HEIGHT - 35
       ctx.fillStyle = '#38BDF8'
       ctx.shadowColor = '#38BDF8'

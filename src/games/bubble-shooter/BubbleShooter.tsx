@@ -7,16 +7,16 @@ const CANVAS_WIDTH = 420
 const CANVAS_HEIGHT = 540
 const BUBBLE_RADIUS = 18
 const BUBBLE_DIAMETER = BUBBLE_RADIUS * 2
-const ROW_HEIGHT = Math.floor(BUBBLE_DIAMETER * 0.866) // Hexagonal packing height
+const ROW_HEIGHT = Math.floor(BUBBLE_DIAMETER * 0.866)
 const GRID_COLS = 11
 const GRID_ROWS = 12
 
 const COLORS = [
-  '#F87171', // Red
-  '#60A5FA', // Blue
-  '#34D399', // Green
-  '#FBBF24', // Yellow
-  '#A78BFA', // Purple
+  '#F87171',
+  '#60A5FA',
+  '#34D399',
+  '#FBBF24',
+  '#A78BFA',
 ]
 
 interface Bubble {
@@ -64,7 +64,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
   const aimAngleRef = useRef<number>(-Math.PI / 2)
   const shotsFiredRef = useRef<number>(0)
 
-  // Initialize bubble grid with 5 starting rows
   const initGrid = useCallback(() => {
     const grid: Grid = []
     for (let r = 0; r < GRID_ROWS; r++) {
@@ -94,7 +93,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     setGameState('playing')
   }, [initGrid])
 
-  // Calculate cell center (x, y)
   const getCellCenter = (r: number, c: number) => {
     const isOffset = r % 2 === 1
     const x = isOffset
@@ -104,7 +102,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     return { x, y }
   }
 
-  // Find nearest valid empty grid cell
   const getNearestCell = (x: number, y: number): { r: number; c: number } | null => {
     let closestDist = Infinity
     let closestCell: { r: number; c: number } | null = null
@@ -126,7 +123,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     return closestCell
   }
 
-  // Find neighbors of (r, c) in the hexagonal grid
   const getNeighbors = (r: number, c: number): { r: number; c: number }[] => {
     const isOffset = r % 2 === 1
     const deltas = isOffset
@@ -155,7 +151,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     return neighbors
   }
 
-  // Pop matching connected bubbles
   const popMatches = (startR: number, startC: number, color: string) => {
     const grid = gridRef.current
     const matched: { r: number; c: number }[] = []
@@ -180,7 +175,7 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     }
 
     if (matched.length >= 3) {
-      // Pop them!
+
       for (const m of matched) {
         grid[m.r][m.c] = null
         const center = getCellCenter(m.r, m.c)
@@ -201,11 +196,9 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
       const points = matched.length * 30
       scoreRef.current += points
 
-      // Drop floating / unanchored bubbles
       dropFloatingBubbles()
       setScore(scoreRef.current)
 
-      // Check if grid is cleared
       let remaining = 0
       for (let r = 0; r < GRID_ROWS; r++) {
         for (let c = 0; c < (r % 2 === 1 ? GRID_COLS - 1 : GRID_COLS); c++) {
@@ -221,13 +214,11 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     }
   }
 
-  // Find bubbles that are connected to the ceiling (r=0)
   const dropFloatingBubbles = () => {
     const grid = gridRef.current
     const connected = new Set<string>()
     const queue: { r: number; c: number }[] = []
 
-    // Seed with row 0
     for (let c = 0; c < GRID_COLS; c++) {
       if (grid[0][c]) {
         queue.push({ r: 0, c })
@@ -246,7 +237,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
       }
     }
 
-    // Any cell with a bubble that is not connected must drop
     let droppedCount = 0
     for (let r = 0; r < GRID_ROWS; r++) {
       const cols = r % 2 === 1 ? GRID_COLS - 1 : GRID_COLS
@@ -273,20 +263,18 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     }
   }
 
-  // Push new row from ceiling every 6 shots
   const advanceCeiling = () => {
     const grid = gridRef.current
-    // Shift rows down
+
     for (let r = GRID_ROWS - 1; r > 0; r--) {
       grid[r] = [...grid[r - 1]]
     }
-    // New top row
+
     grid[0] = []
     for (let c = 0; c < GRID_COLS; c++) {
       grid[0][c] = { color: getRandomColor() }
     }
 
-    // Check if bottom row reached
     const bottomCols = (GRID_ROWS - 1) % 2 === 1 ? GRID_COLS - 1 : GRID_COLS
     for (let c = 0; c < bottomCols; c++) {
       if (grid[GRID_ROWS - 1][c]) {
@@ -297,7 +285,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     }
   }
 
-  // Aim handler
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -311,12 +298,10 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     const launcherY = CANVAS_HEIGHT - 35
     const angle = Math.atan2(mouseY - launcherY, mouseX - launcherX)
 
-    // Restrict shooting angle between -165 deg and -15 deg
     const clamped = Math.max(-Math.PI * 0.92, Math.min(-Math.PI * 0.08, angle))
     aimAngleRef.current = clamped
   }
 
-  // Fire projectile handler
   const handlePointerDown = () => {
     if (gameState !== 'playing' || projectileRef.current) return
     const speed = 12
@@ -333,7 +318,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     nextBubbleRef.current = getRandomColor()
   }
 
-  // Main animation loop
   useEffect(() => {
     let animId: number
     const canvas = canvasRef.current
@@ -342,14 +326,13 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     if (!ctx) return
 
     const loop = () => {
-      // ─── Update logic ──────────────────────────────────────────────
+
       if (gameState === 'playing') {
         const p = projectileRef.current
         if (p && p.active) {
           p.x += p.vx
           p.y += p.vy
 
-          // Wall bounces
           if (p.x <= BUBBLE_RADIUS) {
             p.x = BUBBLE_RADIUS
             p.vx = -p.vx
@@ -358,10 +341,8 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
             p.vx = -p.vx
           }
 
-          // Ceiling collision
           let collided = p.y <= BUBBLE_RADIUS
 
-          // Bubble collision check
           if (!collided) {
             for (let r = 0; r < GRID_ROWS; r++) {
               const cols = r % 2 === 1 ? GRID_COLS - 1 : GRID_COLS
@@ -385,7 +366,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
               gridRef.current[cell.r][cell.c] = { color: p.color }
               popMatches(cell.r, cell.c, p.color)
 
-              // Check danger line overflow
               if (cell.r >= GRID_ROWS - 2) {
                 setGameState('gameover')
                 onScoreRef.current(scoreRef.current)
@@ -400,7 +380,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
           }
         }
 
-        // Update Particles
         particlesRef.current.forEach((pt) => {
           pt.x += pt.vx
           pt.y += pt.vy
@@ -409,17 +388,14 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
         particlesRef.current = particlesRef.current.filter((pt) => pt.life > 0)
       }
 
-      // ─── Render Canvas ──────────────────────────────────────────────
       ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-      // Background
       const bgGrad = ctx.createLinearGradient(0, 0, 0, CANVAS_HEIGHT)
       bgGrad.addColorStop(0, '#fbf7f2')
       bgGrad.addColorStop(1, '#eee5d6')
       ctx.fillStyle = bgGrad
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-      // Danger line at bottom
       ctx.strokeStyle = 'rgba(239, 68, 68, 0.4)'
       ctx.setLineDash([6, 6])
       ctx.lineWidth = 2
@@ -429,7 +405,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
       ctx.stroke()
       ctx.setLineDash([])
 
-      // Draw Grid Bubbles
       for (let r = 0; r < GRID_ROWS; r++) {
         const cols = r % 2 === 1 ? GRID_COLS - 1 : GRID_COLS
         for (let c = 0; c < cols; c++) {
@@ -441,7 +416,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
         }
       }
 
-      // Draw Particles
       particlesRef.current.forEach((pt) => {
         ctx.fillStyle = pt.color
         ctx.globalAlpha = Math.max(0, pt.life / 30)
@@ -451,7 +425,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
       })
       ctx.globalAlpha = 1
 
-      // Draw Trajectory Guideline
       if (gameState === 'playing' && !projectileRef.current) {
         const launcherX = CANVAS_WIDTH / 2
         const launcherY = CANVAS_HEIGHT - 35
@@ -469,11 +442,9 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
         ctx.setLineDash([])
       }
 
-      // Draw Launcher & Next Bubble
       const lx = CANVAS_WIDTH / 2
       const ly = CANVAS_HEIGHT - 35
 
-      // Next bubble preview
       ctx.save()
       ctx.fillStyle = '#7A7092'
       ctx.font = '10px Nunito, sans-serif'
@@ -482,12 +453,10 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
       drawClayBubble(ctx, lx - 60, ly, BUBBLE_RADIUS * 0.8, nextBubbleRef.current)
       ctx.restore()
 
-      // Current loaded bubble
       if (!projectileRef.current && gameState === 'playing') {
         drawClayBubble(ctx, lx, ly, BUBBLE_RADIUS, currentBubbleRef.current)
       }
 
-      // Flying projectile
       const proj = projectileRef.current
       if (proj && proj.active) {
         drawClayBubble(ctx, proj.x, proj.y, BUBBLE_RADIUS, proj.color)
@@ -500,7 +469,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     return () => cancelAnimationFrame(animId)
   }, [gameState])
 
-  // Helper to draw a clay-style shiny bubble
   const drawClayBubble = (
     ctx: CanvasRenderingContext2D,
     x: number,
@@ -509,19 +477,17 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
     color: string
   ) => {
     ctx.save()
-    // Soft outer drop shadow
+
     ctx.shadowColor = 'rgba(0, 0, 0, 0.16)'
     ctx.shadowBlur = 6
     ctx.shadowOffsetY = 3
 
-    // Main circle
     ctx.beginPath()
     ctx.arc(x, y, radius, 0, Math.PI * 2)
     ctx.fillStyle = color
     ctx.fill()
     ctx.shadowColor = 'transparent'
 
-    // Specular highlight (clay sheen)
     const hlGrad = ctx.createRadialGradient(
       x - radius * 0.35,
       y - radius * 0.35,
@@ -542,7 +508,7 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
 
   return (
     <div className="flex flex-col items-center gap-3 w-full max-w-md mx-auto select-none">
-      {/* Top Bar */}
+
       <div className="flex items-center justify-between w-full px-2 text-sm font-bold text-ink">
         <span>
           Score:{' '}
@@ -551,7 +517,6 @@ export function BubbleShooter({ onScore }: GameComponentProps) {
         <span className="text-xs text-ink-soft">Aim & tap to fire</span>
       </div>
 
-      {/* Canvas */}
       <div className="relative w-full aspect-[420/540] rounded-2xl overflow-hidden shadow-xl border-4 border-[var(--color-lavender-dark)]/40 bg-[var(--color-cream)]">
         <canvas
           ref={canvasRef}

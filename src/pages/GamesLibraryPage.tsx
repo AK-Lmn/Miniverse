@@ -63,7 +63,6 @@ export function GamesLibraryPage() {
       <SectionHeading>Game Library</SectionHeading>
       <p className="mb-6 -mt-3 text-ink-soft">Browse {GAMES.length} games — search, filter, and find your next favorite.</p>
 
-      {/* Search */}
       <div className="clay flex items-center gap-2.5 px-4 py-3" style={{ '--clay-bg': 'white' } as React.CSSProperties}>
         <Search size={18} className="shrink-0 text-ink-soft" aria-hidden="true" />
         <input
@@ -84,7 +83,6 @@ export function GamesLibraryPage() {
         )}
       </div>
 
-      {/* Category filter pills */}
       <div className="mt-4 flex flex-wrap gap-2">
         <ClayButton
           size="sm"
@@ -105,7 +103,6 @@ export function GamesLibraryPage() {
         ))}
       </div>
 
-      {/* Secondary filters */}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <SlidersHorizontal size={14} className="text-ink-soft" aria-hidden="true" />
         <span className="text-xs font-bold text-ink-soft">Difficulty:</span>
@@ -157,12 +154,10 @@ export function GamesLibraryPage() {
         </ClayButton>
       </div>
 
-      {/* Result count */}
       <p className="mt-4 text-xs font-semibold text-ink-soft">
         {filtered.length} {filtered.length === 1 ? 'game' : 'games'} found
       </p>
 
-      {/* Grid */}
       <div className="mt-3">
         {filtered.length ? (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">

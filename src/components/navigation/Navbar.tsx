@@ -16,7 +16,6 @@ const LINKS = [
 export function Navbar() {
   const [settingsOpen, setSettingsOpen] = useState(false)
 
-  // Apply stored theme on mount
   useEffect(() => {
     themeStore.set(themeStore.get())
   }, [])
@@ -27,13 +26,11 @@ export function Navbar() {
         <div className="border-b border-white/30 bg-[var(--color-cream)]/80 backdrop-blur-xl">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
 
-            {/* Logo */}
             <NavLink to="/" className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-80" aria-label="MiniVerse home">
               <LogoMark size={32} />
               <Wordmark className="text-xl font-extrabold tracking-tight" />
             </NavLink>
 
-            {/* Desktop nav */}
             <nav className="hidden flex-1 items-center justify-center md:flex" aria-label="Main navigation">
               <div className="clay-inset flex items-center gap-1 rounded-full px-1.5 py-1.5">
                 {LINKS.map(({ to, label, icon: Icon }) => (
@@ -56,7 +53,6 @@ export function Navbar() {
               </div>
             </nav>
 
-            {/* Settings button */}
             <button
               onClick={() => setSettingsOpen(true)}
               className="clay-btn flex shrink-0 items-center gap-2 px-3 py-1.5 text-xs font-bold text-ink"

@@ -50,11 +50,11 @@ export function MemoryMatch({ onScore, soundEnabled }: GameComponentProps) {
         const isBest = prevBest === undefined || moves < prevBest
         return isBest ? { ...b, [size]: moves } : b
       })
-      // Fewer moves & less time = higher score
+
       const score = Math.max(0, 1000 - moves * 10 - seconds * 2)
       onScore(score)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [allMatched])
 
   const newGame = (nextSize: BoardSize = size) => {

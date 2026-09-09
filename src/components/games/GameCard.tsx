@@ -33,7 +33,7 @@ export function GameCard({ game }: { game: GameDefinition }) {
       className="clay group relative flex flex-col gap-3 p-4 transition-all duration-200 hover:-translate-y-1.5 hover:shadow-xl"
       style={{ ['--clay-bg' as string]: `var(--color-${game.accent})` }}
     >
-      {/* Favorite button */}
+
       <button
         onClick={toggleFavorite}
         aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
@@ -47,7 +47,6 @@ export function GameCard({ game }: { game: GameDefinition }) {
         />
       </button>
 
-      {/* Icon + title */}
       <div className="flex items-center gap-3">
         <div
           className="clay-inset flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl"
@@ -64,7 +63,6 @@ export function GameCard({ game }: { game: GameDefinition }) {
         </div>
       </div>
 
-      {/* Badges */}
       <div className="flex flex-wrap items-center gap-1.5">
         <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${DIFFICULTY_CLASS[game.difficulty] ?? ''}`}>
           {game.difficulty}
@@ -75,7 +73,6 @@ export function GameCard({ game }: { game: GameDefinition }) {
         </span>
       </div>
 
-      {/* High score */}
       {highScore > 0 && (
         <p className="text-[11px] font-semibold text-ink-soft">
           Best: <span className="font-bold text-ink">{highScore}</span>

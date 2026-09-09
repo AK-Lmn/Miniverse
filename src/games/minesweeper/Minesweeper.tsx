@@ -118,7 +118,7 @@ export function Minesweeper({ onScore, soundEnabled }: GameComponentProps) {
       const fresh = buildBoard(level, i)
       floodReveal(fresh, i, level)
       if (fresh[i].mine) {
-        // extremely unlucky safe-index edge case guard; rebuild without mine there
+
         fresh[i].mine = false
       }
       setBoard(fresh)

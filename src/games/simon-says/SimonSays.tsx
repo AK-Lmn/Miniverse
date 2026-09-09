@@ -57,7 +57,7 @@ export function SimonSays({ onScore }: GameComponentProps) {
 
     const nextIdx = inputIdx + 1
     if (nextIdx === sequence.length) {
-      // Advance round
+
       const nextSeq = [...sequence, Math.floor(Math.random() * 4)]
       setSequence(nextSeq)
       setRound((r) => r + 1)
@@ -78,7 +78,6 @@ export function SimonSays({ onScore }: GameComponentProps) {
         }
       </div>
 
-      {/* Pads */}
       <div className="grid grid-cols-2 gap-3">
         {PADS.map((pad) => (
           <button
@@ -115,4 +114,3 @@ export function SimonSays({ onScore }: GameComponentProps) {
 }
 
 export default SimonSays
-

@@ -86,7 +86,7 @@ export function TicTacToe({ onScore, soundEnabled }: GameComponentProps) {
       setDraws((d) => d + 1)
       onScore(0.5)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [w, isDraw])
 
   const place = (i: number) => {

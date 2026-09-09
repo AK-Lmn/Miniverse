@@ -12,7 +12,6 @@ import { getTodaysChallenge } from '../lib/dailyChallenge'
 
 const FEATURED_IDS = ['flappy-bird', 'snake', 'tetris', '2048', 'minesweeper', 'memory-match']
 
-// Floating hero icons with staggered positions and animation delays
 const HERO_ICONS = [
   { Icon: Bird,    cls: 'left-[6%]  top-12  text-4xl text-plum/60    animate-float-slow',   delay: '0s' },
   { Icon: Swords,  cls: 'right-[8%] top-8   text-4xl text-mint-dark/60 animate-float-slower', delay: '1.5s' },
@@ -44,9 +43,9 @@ export function HomePage() {
 
   return (
     <div>
-      {/* ── Hero ─────────────────────────────────────────────────── */}
+
       <section className="clay-hero relative overflow-hidden px-4 pb-20 pt-16 sm:px-6 sm:pt-24">
-        {/* Floating game icons */}
+
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           {HERO_ICONS.map(({ Icon, cls, delay }, i) => (
             <Icon
@@ -59,12 +58,11 @@ export function HomePage() {
         </div>
 
         <div className="relative mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-          {/* Pill badge */}
+
           <span className="clay animate-pop-in rounded-full px-5 py-1.5 text-xs font-bold text-plum" style={{ '--clay-bg': 'var(--color-lavender)' } as React.CSSProperties}>
             ✦ {GAMES.length} games · no download needed
           </span>
 
-          {/* Headline */}
           <h1 className="animate-slide-up font-display text-5xl font-black leading-tight tracking-tight sm:text-7xl" style={{ animationDelay: '60ms' }}>
             Mini<span className="gradient-text">Verse</span>
           </h1>
@@ -78,7 +76,6 @@ export function HomePage() {
             No downloads, no accounts, just play.
           </p>
 
-          {/* CTAs */}
           <div className="animate-slide-up mt-1 flex flex-wrap justify-center gap-3" style={{ animationDelay: '240ms' }}>
             <Link to={`/games/${GAMES[0].id}`}>
               <ClayButton accent="mint" size="lg">
@@ -98,7 +95,6 @@ export function HomePage() {
 
       <div className="mx-auto max-w-6xl space-y-16 px-4 pb-20 pt-10 sm:px-6">
 
-        {/* ── Daily Challenge ───────────────────────────────────── */}
         {challengeGame && (
           <section>
             <ClayCard
@@ -132,7 +128,6 @@ export function HomePage() {
           </section>
         )}
 
-        {/* ── Featured Games ────────────────────────────────────── */}
         <section>
           <SectionHeading
             action={
@@ -148,7 +143,6 @@ export function HomePage() {
           </div>
         </section>
 
-        {/* ── Continue Playing ──────────────────────────────────── */}
         <section>
           <SectionHeading>Continue Playing</SectionHeading>
           {recent.length ? (
@@ -172,7 +166,6 @@ export function HomePage() {
           )}
         </section>
 
-        {/* ── Categories pill row ───────────────────────────────── */}
         <section>
           <SectionHeading>Categories</SectionHeading>
           <div className="flex flex-wrap gap-3">
@@ -193,7 +186,6 @@ export function HomePage() {
           </div>
         </section>
 
-        {/* ── Popular ───────────────────────────────────────────── */}
         <section>
           <SectionHeading
             action={
@@ -209,7 +201,6 @@ export function HomePage() {
           </div>
         </section>
 
-        {/* ── Stats strip ──────────────────────────────────────── */}
         <section>
           <SectionHeading>Your Stats</SectionHeading>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -246,7 +237,6 @@ export function HomePage() {
           </div>
         </section>
 
-        {/* ── Bottom CTA ────────────────────────────────────────── */}
         <section className="text-center">
           <ClayCard accent="lavender" className="mx-auto flex max-w-xl flex-col items-center gap-5 px-8 py-12">
             <Gamepad2 size={32} className="text-plum" aria-hidden="true" />

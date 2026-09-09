@@ -82,14 +82,12 @@ export function ProfilePage() {
       <SectionHeading>Your Profile</SectionHeading>
       <p className="-mt-3 mb-8 text-ink-soft">Local stats — no account needed, everything lives on this device.</p>
 
-      {/* ── Identity card ─────────────────────────────────────── */}
       <ClayCard accent="lavender" className="mb-10 flex flex-col items-center gap-5 px-6 py-6 sm:flex-row sm:gap-8">
-        {/* Avatar placeholder */}
+
         <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-br from-[var(--color-plum)] to-[var(--color-pink-dark)] text-3xl font-black text-white shadow-lg">
           {nickname ? nickname[0].toUpperCase() : '?'}
         </div>
 
-        {/* Nickname input */}
         <div className="flex-1">
           <label htmlFor="nickname" className="text-xs font-bold uppercase tracking-widest text-ink-soft">
             Nickname
@@ -104,7 +102,6 @@ export function ProfilePage() {
           />
         </div>
 
-        {/* Favorite game */}
         {favoriteGame && (
           <div className="flex items-center gap-3 rounded-2xl bg-white/40 px-4 py-3">
             {favoriteGame.icon
@@ -119,7 +116,6 @@ export function ProfilePage() {
         )}
       </ClayCard>
 
-      {/* ── Stats bento ───────────────────────────────────────── */}
       <section className="mb-10">
         <SectionHeading>Overview</SectionHeading>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -135,7 +131,6 @@ export function ProfilePage() {
         </div>
       </section>
 
-      {/* ── Records ───────────────────────────────────────────── */}
       <section className="mb-10">
         <SectionHeading>Records</SectionHeading>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -164,7 +159,6 @@ export function ProfilePage() {
         </div>
       </section>
 
-      {/* ── Top High Scores ───────────────────────────────────── */}
       <section className="mb-10">
         <SectionHeading>Top High Scores</SectionHeading>
         {topScores.length ? (
@@ -200,7 +194,6 @@ export function ProfilePage() {
         )}
       </section>
 
-      {/* ── Data & Backup ─────────────────────────────────────── */}
       <section>
         <SectionHeading>Data &amp; Backup</SectionHeading>
         <ClayCard accent="mint" className="flex flex-col gap-5 p-5 sm:flex-row sm:items-start sm:justify-between">
@@ -245,7 +238,6 @@ export function ProfilePage() {
         </ClayCard>
       </section>
 
-      {/* Achievements summary */}
       <div className="mt-6 flex items-center justify-center gap-2 text-xs font-semibold text-ink-soft">
         <Star size={13} className="text-plum" aria-hidden="true" />
         MiniVerse v1.0 · All data stored locally on your device

@@ -30,11 +30,9 @@ export function ChallengesPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
 
-      {/* ── Page header ───────────────────────────────────────── */}
       <SectionHeading>Challenges</SectionHeading>
       <p className="-mt-3 mb-8 text-ink-soft">Daily goals, achievements, and your local leaderboard.</p>
 
-      {/* ── Daily Challenge ───────────────────────────────────── */}
       {challengeGame && (
         <section className="mb-12">
           <ClayCard accent="butter" className="flex flex-col gap-5 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
@@ -59,8 +57,6 @@ export function ChallengesPage() {
           </ClayCard>
         </section>
       )}
-
-      {/* ── Achievements ──────────────────────────────────────── */}
       <section className="mb-12">
         <SectionHeading>
           Achievements
@@ -82,7 +78,6 @@ export function ChallengesPage() {
                 accent={isUnlocked ? 'mint' : 'cream'}
                 className={`flex items-center gap-4 px-4 py-4 transition-all ${isUnlocked ? '' : 'opacity-65'}`}
               >
-                {/* Icon area */}
                 <div
                   className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
                   style={{ background: isUnlocked ? 'var(--color-mint-dark)' : 'rgba(150,130,180,0.15)' }}
@@ -97,7 +92,6 @@ export function ChallengesPage() {
                   <p className="font-display text-sm font-bold text-ink">{a.name}</p>
                   <p className="truncate text-xs text-ink-soft">{a.description}</p>
 
-                  {/* Progress bar */}
                   {progress && !isUnlocked && (
                     <div className="mt-2">
                       <div className="flex items-center justify-between mb-1">
@@ -122,7 +116,6 @@ export function ChallengesPage() {
         </div>
       </section>
 
-      {/* ── Local Leaderboard ─────────────────────────────────── */}
       <section>
         <div className="mb-5 flex items-end justify-between">
           <div>

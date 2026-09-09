@@ -19,9 +19,6 @@ export function AchievementToastProvider({ children }: { children: ReactNode }) 
     setQueue((q) => [...q, ...achievements])
   }, [])
 
-  // Side effects (starting a timer, advancing the queue) belong in an
-  // effect, not in the render body — keeps render pure and avoids the
-  // timer firing twice under StrictMode's double-invoke.
   useEffect(() => {
     if (active || !queue.length) return
     const [next, ...rest] = queue

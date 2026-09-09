@@ -45,12 +45,10 @@ export function Wordle({ onScore }: GameComponentProps) {
     const guessArr = guess.split('')
     const letterCounts: Record<string, number> = {}
 
-    // Count letters in target
     for (const char of targetArr) {
       letterCounts[char] = (letterCounts[char] || 0) + 1
     }
 
-    // First pass: mark correct positions
     for (let i = 0; i < 5; i++) {
       if (guessArr[i] === targetArr[i]) {
         statuses[i] = 'correct'
@@ -58,7 +56,6 @@ export function Wordle({ onScore }: GameComponentProps) {
       }
     }
 
-    // Second pass: mark present letters
     for (let i = 0; i < 5; i++) {
       if (statuses[i] !== 'correct') {
         const char = guessArr[i]
@@ -113,7 +110,6 @@ export function Wordle({ onScore }: GameComponentProps) {
     [status, currentGuess, submitGuess]
   )
 
-  // Physical keyboard listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const k = e.key.toUpperCase()
@@ -139,7 +135,6 @@ export function Wordle({ onScore }: GameComponentProps) {
     setMessage(null)
   }
 
-  // Aggregate letter statuses for keyboard coloring
   const keyStatuses = guesses.reduce<Record<string, LetterStatus>>((acc, row) => {
     row.letters.forEach((char, i) => {
       const current = acc[char]
@@ -157,14 +152,13 @@ export function Wordle({ onScore }: GameComponentProps) {
 
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-lg mx-auto select-none">
-      {/* Toast Alert */}
+
       {message && (
         <div className="absolute top-24 z-30 clay bg-white dark:bg-zinc-800 text-ink px-4 py-2 rounded-full font-bold text-sm animate-pop-in shadow-lg">
           {message}
         </div>
       )}
 
-      {/* Grid of Guesses */}
       <div className="grid grid-rows-6 gap-1.5 sm:gap-2 my-2">
         {Array.from({ length: 6 }).map((_, rowIndex) => {
           const isCurrentRow = rowIndex === guesses.length
@@ -212,7 +206,6 @@ export function Wordle({ onScore }: GameComponentProps) {
         })}
       </div>
 
-      {/* Game Over Outcome Modal */}
       {status !== 'playing' && (
         <div className="clay p-4 rounded-2xl bg-white/95 dark:bg-zinc-900/95 flex flex-col items-center gap-2 animate-pop-in my-1 text-center max-w-xs shadow-xl">
           {status === 'won' ? (
@@ -238,7 +231,6 @@ export function Wordle({ onScore }: GameComponentProps) {
         </div>
       )}
 
-      {/* On-screen Virtual Keyboard */}
       <div className="flex flex-col gap-1.5 w-full mt-1">
         {KEYBOARD_ROWS.map((row, rIdx) => (
           <div key={rIdx} className="flex justify-center gap-1 sm:gap-1.5">

@@ -1,7 +1,6 @@
 import type { DailyChallengeState } from '../types'
 import { dailyChallengeStore } from './storage'
 
-// Games that work well as a "beat this target" daily challenge
 const CHALLENGE_POOL: { gameId: string; label: string; targets: number[] }[] = [
   { gameId: 'reaction-test', label: 'Beat {n}ms average reaction', targets: [280, 260, 300, 240] },
   { gameId: 'click-speed', label: 'Reach {n} clicks per second', targets: [6, 7, 5, 8] },
@@ -17,7 +16,6 @@ function todayKey(): string {
   return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`
 }
 
-// Simple deterministic hash so the same date always produces the same challenge
 function hashString(s: string): number {
   let h = 0
   for (let i = 0; i < s.length; i++) {

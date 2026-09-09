@@ -85,7 +85,7 @@ export function TypingTest({ onScore, soundEnabled }: GameComponentProps) {
 
   useEffect(() => {
     if (running && timeLeft === 0) finishTest()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [timeLeft, running])
 
   const handleChange = (value: string) => {

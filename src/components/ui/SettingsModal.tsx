@@ -28,7 +28,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [reducedMotion, setRM]    = useState(false)
   const dialogRef                 = useRef<HTMLDivElement>(null)
 
-  // Load from storage on open
   useEffect(() => {
     if (!isOpen) return
     setTheme(themeStore.get())
@@ -38,7 +37,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     setRM(reducedMotionStore.get())
   }, [isOpen])
 
-  // Trap focus & close on Escape
   useEffect(() => {
     if (!isOpen) return
     const handleKey = (e: KeyboardEvent) => {
@@ -78,14 +76,13 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   return (
     <>
-      {/* Backdrop */}
+
       <div
         className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal */}
       <div
         ref={dialogRef}
         role="dialog"
@@ -94,7 +91,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
       >
         <div className="clay animate-pop-in w-full max-w-md" style={{ '--clay-bg': 'var(--color-cream)' } as React.CSSProperties}>
-          {/* Header */}
+
           <div className="flex items-center justify-between border-b border-white/30 px-6 py-4">
             <h2 className="font-display text-xl font-bold text-ink">Settings</h2>
             <button
@@ -107,7 +104,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           </div>
 
           <div className="flex flex-col gap-6 px-6 py-6">
-            {/* Theme */}
+
             <div>
               <label className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-ink-soft">
                 <Sun size={13} aria-hidden="true" /> Theme
@@ -129,7 +126,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               </div>
             </div>
 
-            {/* Nickname */}
             <div>
               <label htmlFor="settings-nickname" className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-ink-soft">
                 <User size={13} aria-hidden="true" /> Nickname
@@ -144,9 +140,8 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               />
             </div>
 
-            {/* Toggles */}
             <div className="flex flex-col gap-4">
-              {/* Sound */}
+
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2 text-sm font-semibold text-ink">
                   {sound ? <Volume2 size={16} aria-hidden="true" /> : <VolumeX size={16} aria-hidden="true" />}
@@ -155,7 +150,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 <ClayToggle checked={sound} onChange={handleSound} label="Toggle sound" />
               </div>
 
-              {/* Compact density */}
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2 text-sm font-semibold text-ink">
                   {density === 'compact' ? <Minimize2 size={16} aria-hidden="true" /> : <Maximize2 size={16} aria-hidden="true" />}
@@ -164,7 +158,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 <ClayToggle checked={density === 'compact'} onChange={handleDensity} label="Toggle compact card density" />
               </div>
 
-              {/* Reduced motion */}
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2 text-sm font-semibold text-ink">
                   <Zap size={16} aria-hidden="true" />
@@ -175,7 +168,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             </div>
           </div>
 
-          {/* Footer */}
           <div className="border-t border-white/30 px-6 py-4">
             <ClayButton accent="mint" className="w-full justify-center" onClick={onClose}>
               Done

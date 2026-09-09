@@ -92,7 +92,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
     setGameState('playing')
   }
 
-  // Keyboard controls
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
@@ -118,7 +117,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
     }
   }, [])
 
-  // Mouse / Touch paddle control
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current
     if (!canvas || !stateRef.current.active) return
@@ -131,7 +129,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
     )
   }
 
-  // Main game loop
   useEffect(() => {
     if (gameState !== 'playing') return
     let animId: number
@@ -144,7 +141,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
 
       const s = stateRef.current
 
-      // Paddle move by key
       if (s.keys.left) {
         s.paddleX = Math.max(0, s.paddleX - 6.5)
       }
@@ -152,11 +148,9 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
         s.paddleX = Math.min(CANVAS_WIDTH - s.paddleWidth, s.paddleX + 6.5)
       }
 
-      // Ball position
       s.ballX += s.ballSpeedX
       s.ballY += s.ballSpeedY
 
-      // Wall bounce
       if (s.ballX - s.ballRadius <= 0) {
         s.ballX = s.ballRadius
         s.ballSpeedX = -s.ballSpeedX
@@ -173,7 +167,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
         playSfx('click', soundEnabled)
       }
 
-      // Paddle bounce
       const paddleY = CANVAS_HEIGHT - 25
       if (
         s.ballY + s.ballRadius >= paddleY &&
@@ -188,7 +181,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
         playSfx('click', soundEnabled)
       }
 
-      // Ball missed bottom
       if (s.ballY + s.ballRadius >= CANVAS_HEIGHT) {
         s.lives -= 1
         setLives(s.lives)
@@ -199,7 +191,7 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
           onScore(s.score)
           return
         } else {
-          // Reset ball to paddle
+
           s.ballX = s.paddleX + s.paddleWidth / 2
           s.ballY = CANVAS_HEIGHT - 40
           s.ballSpeedY = -4.5
@@ -208,7 +200,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
         }
       }
 
-      // Brick collision
       let aliveBricksCount = 0
       for (const brick of s.bricks) {
         if (!brick.alive) continue
@@ -226,7 +217,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
           setScore(s.score)
           playSfx('score', soundEnabled)
 
-          // Chance for powerup
           if (Math.random() < 0.15) {
             const types: PowerUp['type'][] = ['wide', 'extra-life', 'fast']
             s.powerUps.push({
@@ -240,17 +230,15 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
         }
       }
 
-      // Board cleared! Next round
       if (aliveBricksCount === 0) {
         initBoard(s.lives)
         playSfx('levelUp', soundEnabled)
       }
 
-      // Powerups update
       for (const p of s.powerUps) {
         if (!p.alive) continue
         p.y += 2
-        // Catch powerup
+
         if (
           p.y >= paddleY &&
           p.y <= paddleY + PADDLE_HEIGHT &&
@@ -268,14 +256,11 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
         }
       }
 
-      // Draw Everything
       ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-      // Background
       ctx.fillStyle = '#0F172A'
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-      // Draw Bricks
       for (const b of s.bricks) {
         if (!b.alive) continue
         ctx.fillStyle = b.color
@@ -287,7 +272,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
       }
       ctx.shadowBlur = 0
 
-      // Draw PowerUps
       for (const p of s.powerUps) {
         if (!p.alive) continue
         ctx.fillStyle = p.type === 'wide' ? '#38BDF8' : p.type === 'extra-life' ? '#F43F5E' : '#FBBF24'
@@ -296,7 +280,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
         ctx.fill()
       }
 
-      // Draw Paddle
       ctx.fillStyle = '#38BDF8'
       ctx.shadowColor = '#38BDF8'
       ctx.shadowBlur = 8
@@ -305,7 +288,6 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
       ctx.fill()
       ctx.shadowBlur = 0
 
-      // Draw Ball
       ctx.fillStyle = '#F43F5E'
       ctx.shadowColor = '#F43F5E'
       ctx.shadowBlur = 8

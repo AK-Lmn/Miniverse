@@ -4,7 +4,7 @@ import { ClayButton } from '../../components/ui/Clay'
 import { RotateCcw, Shuffle } from 'lucide-react'
 
 const SIZE  = 4
-const TOTAL = SIZE * SIZE // 16 tiles, tile 15 = blank
+const TOTAL = SIZE * SIZE
 
 function createSolvedBoard() {
   return Array.from({ length: TOTAL }, (_, i) => (i < TOTAL - 1 ? i + 1 : 0))
@@ -14,14 +14,13 @@ function isSolved(board: number[]) {
   return board.every((v, i) => v === (i < TOTAL - 1 ? i + 1 : 0))
 }
 
-// Fisher-Yates shuffle that produces a solvable board
 function shuffleBoard(board: number[]): number[] {
   const b = [...board]
   for (let i = b.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     ;[b[i], b[j]] = [b[j], b[i]]
   }
-  // Ensure solvability (count inversions + blank row parity)
+
   const inversions = b
     .filter((v) => v !== 0)
     .reduce((acc, v, i, arr) => acc + arr.slice(i + 1).filter((w) => w !== 0 && w < v).length, 0)
@@ -29,7 +28,7 @@ function shuffleBoard(board: number[]): number[] {
   const rowFromBottom = SIZE - blankRow
   const solvable = rowFromBottom % 2 === 0 ? inversions % 2 !== 0 : inversions % 2 === 0
   if (!solvable) {
-    // Swap two non-blank tiles to flip parity
+
     const i0 = b.findIndex((v, i) => v !== 0 && i !== b.indexOf(0))
     const i1 = b.findIndex((v, i) => v !== 0 && i !== b.indexOf(0) && i !== i0)
     ;[b[i0], b[i1]] = [b[i1], b[i0]]
@@ -78,7 +77,6 @@ export function SlidePuzzle({ onScore }: GameComponentProps) {
         </button>
       </div>
 
-      {/* Board */}
       <div
         className="grid gap-2"
         style={{ gridTemplateColumns: `repeat(${SIZE}, 1fr)`, width: '100%' }}

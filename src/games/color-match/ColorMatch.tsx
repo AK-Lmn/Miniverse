@@ -19,7 +19,7 @@ function pickRound() {
 }
 
 const ROUNDS = 10
-const TIME_PER_ROUND = 3000 // ms
+const TIME_PER_ROUND = 3000
 
 export function ColorMatch({ onScore }: GameComponentProps) {
   const [phase, setPhase]       = useState<Phase>('idle')
@@ -29,7 +29,6 @@ export function ColorMatch({ onScore }: GameComponentProps) {
   const [timeLeft, setTimeLeft] = useState(TIME_PER_ROUND)
   const [flash, setFlash]       = useState<'correct' | 'wrong' | null>(null)
 
-  // Timer per round
   useEffect(() => {
     if (phase !== 'playing') return
     if (timeLeft <= 0) {
@@ -84,7 +83,7 @@ export function ColorMatch({ onScore }: GameComponentProps) {
 
       {(phase === 'playing' || phase === 'done') && (
         <>
-          {/* Progress bar */}
+
           <div className="w-full h-2 rounded-full bg-white/50 overflow-hidden">
             <div
               className="h-2 rounded-full transition-none"
@@ -94,7 +93,6 @@ export function ColorMatch({ onScore }: GameComponentProps) {
 
           <p className="text-xs font-semibold text-ink-soft">Round {round + 1} / {ROUNDS} · Score: {score}</p>
 
-          {/* Stimulus */}
           <div
             className="flex h-24 w-64 items-center justify-center rounded-3xl shadow-lg"
             style={{
@@ -111,7 +109,6 @@ export function ColorMatch({ onScore }: GameComponentProps) {
             </span>
           </div>
 
-          {/* Color pads */}
           {phase === 'playing' && (
             <div className="grid grid-cols-2 gap-3 w-full">
               {COLORS.map((c) => (

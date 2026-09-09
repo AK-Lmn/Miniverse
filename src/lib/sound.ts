@@ -1,5 +1,3 @@
-// Minimal Web Audio synthesizer for UI feedback sounds. No audio files needed.
-
 let ctx: AudioContext | null = null
 
 function getCtx(): AudioContext | null {
@@ -61,6 +59,6 @@ export function playSfx(name: keyof typeof sfx, enabled: boolean) {
   try {
     sfx[name]()
   } catch {
-    // audio not available — never block gameplay on sound failure
+
   }
 }

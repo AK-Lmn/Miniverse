@@ -31,7 +31,7 @@ export function GamePage() {
     setLastResult(null)
     setSubmittedToLeaderboard(false)
     setIsShareOpen(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [game?.id])
 
   if (!game) return <Navigate to="/404" replace />
@@ -66,7 +66,6 @@ export function GamePage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
 
-      {/* ── Breadcrumb header ─────────────────────────────────── */}
       <div className="mb-5 flex items-center justify-between">
         <Link
           to="/games"
@@ -104,7 +103,6 @@ export function GamePage() {
         </div>
       </div>
 
-      {/* ── Game title + meta ─────────────────────────────────── */}
       <div className="mb-4 flex items-center gap-4">
         <div
           className="clay-inset flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl"
@@ -129,7 +127,6 @@ export function GamePage() {
         </div>
       </div>
 
-      {/* ── Game canvas ───────────────────────────────────────── */}
       <ClayCard
         accent={game.accent}
         className="flex flex-col items-center px-4 py-6 sm:px-8 sm:py-8"
@@ -138,7 +135,6 @@ export function GamePage() {
         <Component key={game.id} onScore={handleScore} soundEnabled={soundEnabled} />
       </ClayCard>
 
-      {/* ── Score result panel ────────────────────────────────── */}
       {lastResult && (
         <div className="mt-4 animate-slide-up">
           <ClayCard
@@ -200,7 +196,6 @@ export function GamePage() {
         gameEmoji={game.emoji}
       />
 
-      {/* ── How to play ───────────────────────────────────────── */}
       <ClayCard accent="cream" className="mt-6 px-6 py-5">
         <h2 className="font-display text-base font-bold text-ink">How to Play</h2>
         <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-ink-soft">
@@ -208,7 +203,6 @@ export function GamePage() {
         </ul>
       </ClayCard>
 
-      {/* ── Related games ─────────────────────────────────────── */}
       {related.length > 0 && (
         <div className="mt-8">
           <h2 className="mb-3 font-display text-base font-bold text-ink">More {game.category} Games</h2>

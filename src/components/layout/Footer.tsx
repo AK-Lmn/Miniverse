@@ -9,7 +9,7 @@ export function Footer() {
     <footer className="mt-16 border-t border-white/30 bg-[var(--color-cream-dark)]/50 pb-24 pt-10 md:pb-10">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
-          {/* Brand */}
+
           <div className="max-w-xs">
             <div className="flex items-center gap-2">
               <LogoMark size={26} />
@@ -20,7 +20,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Categories */}
           <div>
             <h4 className="flex items-center gap-1.5 font-display text-sm font-bold text-ink">
               <Gamepad2 size={14} aria-hidden="true" />
@@ -37,7 +36,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Info */}
           <div>
             <h4 className="font-display text-sm font-bold text-ink">About</h4>
             <ul className="mt-2 space-y-1 text-sm text-ink-soft">

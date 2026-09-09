@@ -47,7 +47,6 @@ import SlidePuzzle from '../games/slide-puzzle/SlidePuzzle'
 import ColorMatch from '../games/color-match/ColorMatch'
 import Hangman from '../games/hangman/Hangman'
 
-
 export const GAMES: GameDefinition[] = [
   {
     id: 'flappy-bird',

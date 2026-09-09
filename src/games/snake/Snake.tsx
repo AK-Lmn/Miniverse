@@ -118,12 +118,12 @@ export function Snake({ onScore, soundEnabled }: GameComponentProps) {
     }
     rafRef.current = requestAnimationFrame(loop)
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [status])
 
   useEffect(() => {
     if (status === 'over') onScore(score)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [status])
 
   useEffect(() => {

@@ -115,7 +115,7 @@ export function Game2048({ onScore, soundEnabled }: GameComponentProps) {
 
   useEffect(() => {
     if (over) onScore(score)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [over])
 
   useEffect(() => {

@@ -31,7 +31,6 @@ export function EndlessRunner({ onScore }: GameComponentProps) {
   const [phase, setPhase]     = useState<'idle' | 'playing' | 'dead'>('idle')
   const [score, setScore]     = useState(0)
 
-  // Game state in refs to avoid stale closures
   const playerY   = useRef(GROUND)
   const velY      = useRef(0)
   const onGround  = useRef(true)
@@ -73,7 +72,6 @@ export function EndlessRunner({ onScore }: GameComponentProps) {
     const dpr = window.devicePixelRatio || 1
     ticks.current++
 
-    // Physics
     velY.current += GRAVITY * (dt / 16)
     playerY.current += velY.current * (dt / 16)
     if (playerY.current >= GROUND) {
@@ -82,25 +80,20 @@ export function EndlessRunner({ onScore }: GameComponentProps) {
       onGround.current = true
     }
 
-    // Speed ramp
     speed.current = BASE_SPEED + ticks.current / 300
 
-    // Spawn obstacles
     const gap = Math.max(60, 140 - ticks.current / 10)
     if (ticks.current % Math.round(gap) === 0) {
       const h = 20 + Math.random() * 25
       obstacles.current.push({ x: W, w: 16, h })
     }
 
-    // Move obstacles
     obstacles.current = obstacles.current
       .map((o) => ({ ...o, x: o.x - speed.current * (dt / 16) }))
       .filter((o) => o.x + o.w > -10)
 
-    // Score
     scoreRef.current = Math.floor(ticks.current / 6)
 
-    // Collision (player = 24×28 box at x=60)
     const px = 60, pw = 24, ph = 28
     const py = playerY.current - ph
     for (const o of obstacles.current) {
@@ -113,23 +106,19 @@ export function EndlessRunner({ onScore }: GameComponentProps) {
       }
     }
 
-    // Draw
     ctx.clearRect(0, 0, W * dpr, H * dpr)
     ctx.save()
     ctx.scale(dpr, dpr)
 
-    // Ground
     ctx.fillStyle = 'rgba(150,130,180,0.18)'
     ctx.fillRect(0, GROUND + 2, W, 4)
 
-    // Player (simple rounded rect)
     const accent = getComputedStyle(document.documentElement).getPropertyValue('--color-plum').trim() || '#6B4FBF'
     ctx.fillStyle = accent
     ctx.beginPath()
     ctx.roundRect(px, playerY.current - ph, pw, ph, 6)
     ctx.fill()
 
-    // Eyes
     ctx.fillStyle = 'white'
     ctx.beginPath()
     ctx.arc(px + pw - 6, playerY.current - ph + 8, 3.5, 0, Math.PI * 2)
@@ -139,7 +128,6 @@ export function EndlessRunner({ onScore }: GameComponentProps) {
     ctx.arc(px + pw - 5, playerY.current - ph + 8, 1.8, 0, Math.PI * 2)
     ctx.fill()
 
-    // Obstacles
     ctx.fillStyle = '#F7A87C'
     for (const o of obstacles.current) {
       ctx.beginPath()
@@ -147,7 +135,6 @@ export function EndlessRunner({ onScore }: GameComponentProps) {
       ctx.fill()
     }
 
-    // Score
     ctx.fillStyle = 'var(--color-ink-soft, #7A7092)'
     ctx.font = 'bold 14px system-ui'
     ctx.textAlign = 'right'
@@ -156,7 +143,6 @@ export function EndlessRunner({ onScore }: GameComponentProps) {
     ctx.restore()
   }, [onScore]), phase === 'playing')
 
-  // Key/touch controls
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); jump() } }
     window.addEventListener('keydown', onKey)

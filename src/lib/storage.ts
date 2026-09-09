@@ -1,6 +1,3 @@
-// Clean localStorage abstraction. All app persistence goes through here
-// so components never call localStorage directly.
-
 const PREFIX = 'miniverse:'
 
 function read<T>(key: string, fallback: T): T {
@@ -19,7 +16,7 @@ function write<T>(key: string, value: T): void {
   try {
     window.localStorage.setItem(PREFIX + key, JSON.stringify(value))
   } catch {
-    // storage full or unavailable — fail silently, app still works in-memory
+
   }
 }
 
@@ -29,8 +26,6 @@ function remove(key: string): void {
 }
 
 export const storage = { read, write, remove }
-
-// Typed accessors for each domain of app data
 
 import type {
   PlayRecord,

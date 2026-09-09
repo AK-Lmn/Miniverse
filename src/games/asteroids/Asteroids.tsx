@@ -36,7 +36,7 @@ interface Asteroid {
   vx: number
   vy: number
   radius: number
-  tier: 3 | 2 | 1 // 3 = Large, 2 = Medium, 1 = Small
+  tier: 3 | 2 | 1
   points: Point[]
 }
 
@@ -74,7 +74,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
   const onScoreRef = useRef(onScore)
   onScoreRef.current = onScore
 
-  // Game state held in refs for 60fps canvas loop
   const shipRef = useRef<Ship>({
     x: CANVAS_WIDTH / 2,
     y: CANVAS_HEIGHT / 2,
@@ -103,7 +102,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
       let x = Math.random() * CANVAS_WIDTH
       let y = Math.random() * CANVAS_HEIGHT
 
-      // Keep distance from player ship on spawn
       while (Math.hypot(x - ship.x, y - ship.y) < 120) {
         x = Math.random() * CANVAS_WIDTH
         y = Math.random() * CANVAS_HEIGHT
@@ -137,7 +135,7 @@ export function Asteroids({ onScore }: GameComponentProps) {
       thrusting: false,
       radius: 12,
     }
-    invincibleRef.current = 120 // ~2 seconds
+    invincibleRef.current = 120
   }, [])
 
   const startGame = useCallback(() => {
@@ -169,7 +167,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
     }
   }
 
-  // Keyboard events
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
@@ -190,7 +187,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
     }
   }, [])
 
-  // Main game loop
   useEffect(() => {
     let animId: number
     const canvas = canvasRef.current
@@ -203,7 +199,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
         const ship = shipRef.current
         const keys = keysPressed.current
 
-        // Controls
         if (keys['ArrowLeft'] || keys['KeyA']) {
           ship.angle -= ship.rotationSpeed
         }
@@ -218,7 +213,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
           ship.vx += Math.cos(ship.angle) * thrust
           ship.vy += Math.sin(ship.angle) * thrust
 
-          // Thruster particle
           if (Math.random() < 0.6) {
             const backX = ship.x - Math.cos(ship.angle) * 14
             const backY = ship.y - Math.sin(ship.angle) * 14
@@ -233,19 +227,16 @@ export function Asteroids({ onScore }: GameComponentProps) {
           }
         }
 
-        // Apply friction & movement
         ship.vx *= 0.985
         ship.vy *= 0.985
         ship.x += ship.vx
         ship.y += ship.vy
 
-        // Wrap ship around edges
         if (ship.x < 0) ship.x = CANVAS_WIDTH
         if (ship.x > CANVAS_WIDTH) ship.x = 0
         if (ship.y < 0) ship.y = CANVAS_HEIGHT
         if (ship.y > CANVAS_HEIGHT) ship.y = 0
 
-        // Shooting
         if (fireCooldownRef.current > 0) {
           fireCooldownRef.current--
         }
@@ -261,7 +252,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
           })
         }
 
-        // Update Bullets
         bulletsRef.current.forEach((b) => {
           b.x += b.vx
           b.y += b.vy
@@ -273,7 +263,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
         })
         bulletsRef.current = bulletsRef.current.filter((b) => b.life > 0)
 
-        // Update Asteroids
         asteroidsRef.current.forEach((a) => {
           a.x += a.vx
           a.y += a.vy
@@ -283,7 +272,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
           if (a.y > CANVAS_HEIGHT + a.radius) a.y = -a.radius
         })
 
-        // Bullet - Asteroid Collisions
         const newAsteroids: Asteroid[] = []
         for (let bi = bulletsRef.current.length - 1; bi >= 0; bi--) {
           const b = bulletsRef.current[bi]
@@ -291,7 +279,7 @@ export function Asteroids({ onScore }: GameComponentProps) {
             const a = asteroidsRef.current[ai]
             const dist = Math.hypot(b.x - a.x, b.y - a.y)
             if (dist < a.radius) {
-              // Hit!
+
               bulletsRef.current.splice(bi, 1)
               asteroidsRef.current.splice(ai, 1)
 
@@ -301,7 +289,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
               scoreRef.current += pts
               setScore(scoreRef.current)
 
-              // Split asteroid
               if (a.tier > 1) {
                 const nextTier = (a.tier - 1) as 2 | 1
                 const nextRadius = nextTier === 2 ? 20 : 12
@@ -327,7 +314,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
           asteroidsRef.current.push(...newAsteroids)
         }
 
-        // Check wave clear
         if (asteroidsRef.current.length === 0) {
           waveRef.current++
           setWave(waveRef.current)
@@ -336,12 +322,10 @@ export function Asteroids({ onScore }: GameComponentProps) {
           spawnAsteroids(Math.min(3 + waveRef.current, 9))
         }
 
-        // Invincibility countdown
         if (invincibleRef.current > 0) {
           invincibleRef.current--
         }
 
-        // Ship - Asteroid Collisions
         if (invincibleRef.current === 0) {
           for (const a of asteroidsRef.current) {
             const dist = Math.hypot(ship.x - a.x, ship.y - a.y)
@@ -360,7 +344,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
           }
         }
 
-        // Update Particles
         particlesRef.current.forEach((p) => {
           p.x += p.vx
           p.y += p.vy
@@ -369,17 +352,14 @@ export function Asteroids({ onScore }: GameComponentProps) {
         particlesRef.current = particlesRef.current.filter((p) => p.life > 0)
       }
 
-      // ─── Render Canvas ──────────────────────────────────────────────
       ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-      // Background gradient
       const grad = ctx.createLinearGradient(0, 0, 0, CANVAS_HEIGHT)
       grad.addColorStop(0, '#0f172a')
       grad.addColorStop(1, '#1e1b4b')
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-      // Tiny stars background
       ctx.fillStyle = 'rgba(255, 255, 255, 0.4)'
       for (let i = 0; i < 40; i++) {
         const sx = ((i * 137.5) % CANVAS_WIDTH)
@@ -387,7 +367,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
         ctx.fillRect(sx, sy, 1.5, 1.5)
       }
 
-      // Draw Particles
       particlesRef.current.forEach((p) => {
         ctx.fillStyle = p.color
         ctx.globalAlpha = Math.max(0, p.life / 30)
@@ -397,7 +376,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
       })
       ctx.globalAlpha = 1
 
-      // Draw Asteroids
       asteroidsRef.current.forEach((a) => {
         ctx.save()
         ctx.translate(a.x, a.y)
@@ -415,7 +393,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
         ctx.restore()
       })
 
-      // Draw Bullets
       ctx.fillStyle = '#FBBF24'
       ctx.shadowColor = '#FBBF24'
       ctx.shadowBlur = 8
@@ -426,7 +403,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
       })
       ctx.shadowBlur = 0
 
-      // Draw Player Ship
       if (gameState === 'playing') {
         const ship = shipRef.current
         const blink = invincibleRef.current > 0 && Math.floor(invincibleRef.current / 8) % 2 === 1
@@ -435,7 +411,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
           ctx.translate(ship.x, ship.y)
           ctx.rotate(ship.angle)
 
-          // Ship body
           ctx.strokeStyle = '#C4AEFE'
           ctx.fillStyle = '#6B4FBF'
           ctx.lineWidth = 2.5
@@ -448,7 +423,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
           ctx.fill()
           ctx.stroke()
 
-          // Thruster flame
           if (ship.thrusting) {
             ctx.fillStyle = '#FB923C'
             ctx.beginPath()
@@ -471,14 +445,13 @@ export function Asteroids({ onScore }: GameComponentProps) {
     return () => cancelAnimationFrame(animId)
   }, [gameState, spawnAsteroids, resetShip])
 
-  // Virtual controls handlers for mobile/mouse
   const setKey = (code: string, active: boolean) => {
     keysPressed.current[code] = active
   }
 
   return (
     <div className="flex flex-col items-center gap-3 w-full max-w-2xl mx-auto select-none">
-      {/* Top Header stats */}
+
       <div className="flex items-center justify-between w-full px-2 text-sm font-bold text-ink">
         <div className="flex items-center gap-3">
           <span>Score: <span className="font-mono text-base text-[var(--color-plum)]">{score}</span></span>
@@ -497,7 +470,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
         </div>
       </div>
 
-      {/* Canvas container */}
       <div className="relative w-full aspect-[600/420] rounded-2xl overflow-hidden shadow-xl border-4 border-[var(--color-lavender-dark)]/40 bg-black">
         <canvas
           ref={canvasRef}
@@ -531,7 +503,6 @@ export function Asteroids({ onScore }: GameComponentProps) {
         )}
       </div>
 
-      {/* On-screen controls for touch devices */}
       <div className="grid grid-cols-4 gap-2 w-full max-w-sm mt-1 sm:hidden">
         <button
           type="button"

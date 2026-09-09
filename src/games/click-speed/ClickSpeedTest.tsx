@@ -46,7 +46,7 @@ export function ClickSpeedTest({ onScore, soundEnabled }: GameComponentProps) {
       setBest((b) => Math.max(b, cps))
       onScore(cps)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [running, timeLeft])
 
   const handleClick = () => {

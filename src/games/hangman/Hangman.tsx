@@ -18,26 +18,25 @@ function pickWord() {
   return ALL_WORDS[Math.floor(Math.random() * ALL_WORDS.length)]
 }
 
-// SVG hangman stages (0 = empty gallows ... 6 = full figure)
 function HangmanFigure({ wrong }: { wrong: number }) {
   return (
     <svg viewBox="0 0 120 140" width={120} height={140} aria-hidden="true">
-      {/* Gallows */}
+
       <line x1="10" y1="135" x2="110" y2="135" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
       <line x1="30" y1="135" x2="30" y2="10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
       <line x1="30" y1="10" x2="80" y2="10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
       <line x1="80" y1="10" x2="80" y2="28" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      {/* Head */}
+
       {wrong >= 1 && <circle cx="80" cy="36" r="8" stroke="currentColor" strokeWidth="2.5" fill="none" />}
-      {/* Body */}
+
       {wrong >= 2 && <line x1="80" y1="44" x2="80" y2="85" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />}
-      {/* Left arm */}
+
       {wrong >= 3 && <line x1="80" y1="55" x2="58" y2="72" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />}
-      {/* Right arm */}
+
       {wrong >= 4 && <line x1="80" y1="55" x2="102" y2="72" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />}
-      {/* Left leg */}
+
       {wrong >= 5 && <line x1="80" y1="85" x2="60" y2="110" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />}
-      {/* Right leg */}
+
       {wrong >= 6 && <line x1="80" y1="85" x2="100" y2="110" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />}
     </svg>
   )
@@ -75,15 +74,13 @@ export function Hangman({ onScore }: GameComponentProps) {
 
   return (
     <div className="flex w-full max-w-sm flex-col items-center gap-5 select-none">
-      {/* Figure */}
+
       <div className="text-ink">
         <HangmanFigure wrong={wrongCount} />
       </div>
 
-      {/* Wrong count */}
       <p className="text-xs font-semibold text-ink-soft">{wrongCount} / {MAX_WRONG} wrong</p>
 
-      {/* Word */}
       <div className="flex gap-2" aria-label={`Word: ${maskedWord.join(' ')}`}>
         {maskedWord.map((ch, i) => (
           <div
@@ -95,14 +92,12 @@ export function Hangman({ onScore }: GameComponentProps) {
         ))}
       </div>
 
-      {/* Wrong letters */}
       {wrongLetters.length > 0 && (
         <p className="text-xs font-semibold text-rose-500">
           Wrong: {wrongLetters.join('  ')}
         </p>
       )}
 
-      {/* Status */}
       {gameState === 'won' && (
         <p className="font-display text-lg font-bold text-mint-dark">You got it! 🎉</p>
       )}
@@ -110,7 +105,6 @@ export function Hangman({ onScore }: GameComponentProps) {
         <p className="font-display text-lg font-bold text-rose-500">The word was: <span className="text-ink">{word}</span></p>
       )}
 
-      {/* Keyboard */}
       <div className="flex flex-wrap justify-center gap-1.5">
         {ALPHABET.map((letter) => {
           const isGuessed = guessed.has(letter)
@@ -144,4 +138,3 @@ export function Hangman({ onScore }: GameComponentProps) {
 }
 
 export default Hangman
-

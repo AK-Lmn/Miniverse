@@ -10,7 +10,6 @@ interface PuzzleData {
   solution: number[][]
 }
 
-// Curated verified solvable 9x9 puzzles
 const PUZZLES: Record<Difficulty, PuzzleData[]> = {
   Easy: [
     {
@@ -139,7 +138,6 @@ export function Sudoku({ onScore }: GameComponentProps) {
     return activePuzzle.initial.map((row) => row.map((cell) => cell !== 0))
   }, [activePuzzle])
 
-  // Timer
   useEffect(() => {
     if (isWon || isPaused) return
     const id = setInterval(() => setSeconds((s) => s + 1), 1000)
@@ -182,12 +180,12 @@ export function Sudoku({ onScore }: GameComponentProps) {
     (num: number) => {
       if (!selected || isWon || isPaused) return
       const [r, c] = selected
-      if (initialMask[r][c]) return // Cannot modify initial clues
+      if (initialMask[r][c]) return
 
       const key = `${r}-${c}`
 
       if (pencilMode) {
-        // Toggle note
+
         setNotes((prev) => {
           const current = prev[key] ?? []
           const updated = current.includes(num)
@@ -198,7 +196,6 @@ export function Sudoku({ onScore }: GameComponentProps) {
         return
       }
 
-      // Normal entry
       const prevVal = board[r][c]
       const newVal = prevVal === num ? 0 : num
 
@@ -207,7 +204,6 @@ export function Sudoku({ onScore }: GameComponentProps) {
       )
       setBoard(nextBoard)
 
-      // Clear pencil marks on that cell if number is placed
       if (newVal !== 0) {
         setNotes((prev) => {
           const copy = { ...prev }
@@ -215,7 +211,6 @@ export function Sudoku({ onScore }: GameComponentProps) {
           return copy
         })
 
-        // Check if wrong
         if (newVal !== activePuzzle.solution[r][c]) {
           setMistakes((m) => m + 1)
         }
@@ -262,7 +257,6 @@ export function Sudoku({ onScore }: GameComponentProps) {
     })
   }, [selected, isWon, isPaused, initialMask])
 
-  // Keyboard controls
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isWon) return
@@ -300,7 +294,7 @@ export function Sudoku({ onScore }: GameComponentProps) {
 
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-xl mx-auto select-none">
-      {/* Top bar */}
+
       <div className="flex flex-wrap items-center justify-between gap-3 w-full px-2">
         <div className="flex items-center gap-1.5 bg-white/40 dark:bg-black/20 rounded-full p-1 clay-inset">
           {(['Easy', 'Medium', 'Hard'] as Difficulty[]).map((d) => (
@@ -339,7 +333,6 @@ export function Sudoku({ onScore }: GameComponentProps) {
         </div>
       </div>
 
-      {/* Main Board */}
       <div className="relative">
         {isPaused && (
           <div className="absolute inset-0 z-20 backdrop-blur-md bg-white/70 dark:bg-black/70 flex flex-col items-center justify-center rounded-2xl gap-3">
@@ -385,7 +378,6 @@ export function Sudoku({ onScore }: GameComponentProps) {
                   cellVal !== 0 && !isInitial && cellVal !== activePuzzle.solution[r][c]
                 const cellNotes = notes[`${r}-${c}`] ?? []
 
-                // Border logic for 3x3 grids
                 const rightBorder = (c + 1) % 3 === 0 && c !== 8 ? 'border-r-2 border-r-ink/40' : 'border-r border-r-ink/10'
                 const bottomBorder = (r + 1) % 3 === 0 && r !== 8 ? 'border-b-2 border-b-ink/40' : 'border-b border-b-ink/10'
 
@@ -422,7 +414,7 @@ export function Sudoku({ onScore }: GameComponentProps) {
                         {cellVal}
                       </span>
                     ) : (
-                      // Pencil marks grid
+
                       <div className="grid grid-cols-3 grid-rows-3 w-full h-full p-0.5 pointer-events-none text-[8px] sm:text-[9px] leading-none text-ink-soft/70">
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
                           <div key={n} className="flex items-center justify-center font-mono">
@@ -439,7 +431,6 @@ export function Sudoku({ onScore }: GameComponentProps) {
         </ClayCard>
       </div>
 
-      {/* Control buttons */}
       <div className="flex items-center justify-center gap-2 sm:gap-3 w-full">
         <ClayButton
           accent={pencilMode ? 'mint' : 'cream'}
@@ -472,7 +463,6 @@ export function Sudoku({ onScore }: GameComponentProps) {
         </ClayButton>
       </div>
 
-      {/* Number Pad (1-9) */}
       <div className="grid grid-cols-9 gap-1.5 w-full max-w-md px-1">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
           <button

@@ -33,10 +33,8 @@ export function ShareCardModal({
       const ctx = canvas.getContext('2d')
       if (!ctx) return
 
-      // Draw high-resolution share card
       ctx.clearRect(0, 0, 600, 400)
 
-      // Background Gradient
       const grad = ctx.createLinearGradient(0, 0, 600, 400)
       grad.addColorStop(0, '#1E103E')
       grad.addColorStop(0.5, '#2D1557')
@@ -44,7 +42,6 @@ export function ShareCardModal({
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, 600, 400)
 
-      // Decorative border & neon glow
       ctx.strokeStyle = '#38BDF8'
       ctx.lineWidth = 6
       ctx.shadowColor = '#38BDF8'
@@ -52,7 +49,6 @@ export function ShareCardModal({
       ctx.strokeRect(20, 20, 560, 360)
       ctx.shadowBlur = 0
 
-      // Title & Logo
       ctx.fillStyle = '#A7F3D0'
       ctx.font = 'bold 24px sans-serif'
       ctx.fillText('MINIVERSE ARCADE', 50, 70)
@@ -61,7 +57,6 @@ export function ShareCardModal({
       ctx.font = 'bold 36px sans-serif'
       ctx.fillText(`${gameEmoji} ${title}`, 50, 130)
 
-      // Score Container
       ctx.fillStyle = 'rgba(255, 255, 255, 0.08)'
       ctx.beginPath()
       ctx.roundRect(50, 170, 500, 120, 16)
@@ -75,7 +70,6 @@ export function ShareCardModal({
       ctx.font = 'bold 48px sans-serif'
       ctx.fillText(String(score), 80, 268)
 
-      // Footer
       ctx.fillStyle = '#CBD5E1'
       ctx.font = '16px sans-serif'
       ctx.fillText(`Player: ${nickname || 'MiniVerse Gamer'}`, 50, 345)
@@ -96,7 +90,7 @@ export function ShareCardModal({
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      // clipboard fallback
+
     }
   }
 

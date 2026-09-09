@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react'
 import { LogoMark, Wordmark } from './Logo'
 
-/**
- * Shown once per browser session (sessionStorage flag).
- * Animates the logo in with a bounce + glow ring, then fades out.
- */
 export function SplashScreen({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<'enter' | 'exit'>('enter')
 
   useEffect(() => {
-    // Auto-dismiss after 1.8s
+
     const exitTimer = setTimeout(() => setPhase('exit'), 1500)
     const doneTimer = setTimeout(() => onDone(), 2000)
     return () => {
@@ -29,7 +25,7 @@ export function SplashScreen({ onDone }: { onDone: () => void }) {
         pointerEvents: phase === 'exit' ? 'none' : 'all',
       }}
     >
-      {/* Glow ring */}
+
       <div
         style={{
           position: 'absolute',
@@ -41,7 +37,6 @@ export function SplashScreen({ onDone }: { onDone: () => void }) {
         }}
       />
 
-      {/* Logo container — bounces in */}
       <div
         style={{
           animation: 'pop-in 600ms cubic-bezier(0.34,1.56,0.64,1) both',

@@ -52,7 +52,7 @@ export function WhackAMole({ onScore, soundEnabled }: GameComponentProps) {
     if (!running && timeLeft === 0 && score + misses > 0) {
       onScore(score)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [running, timeLeft])
 
   const whack = (i: number) => {

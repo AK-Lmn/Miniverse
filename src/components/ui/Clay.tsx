@@ -11,7 +11,6 @@ const ACCENT_VARS: Record<string, string> = {
   cream: 'var(--color-cream)',
 }
 
-/* ─── ClayCard ─────────────────────────────────────────────────── */
 interface ClayCardProps extends HTMLAttributes<HTMLDivElement> {
   accent?: keyof typeof ACCENT_VARS
   children: ReactNode
@@ -29,7 +28,6 @@ export function ClayCard({ accent = 'cream', className = '', style, children, ..
   )
 }
 
-/* ─── ClayButton ───────────────────────────────────────────────── */
 interface ClayButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   accent?: keyof typeof ACCENT_VARS
   size?: 'sm' | 'md' | 'lg'
@@ -60,7 +58,6 @@ export function ClayButton({
   )
 }
 
-/* ─── ClayInput ────────────────────────────────────────────────── */
 interface ClayInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   id?: string
@@ -83,7 +80,6 @@ export function ClayInput({ label, id, className = '', ...rest }: ClayInputProps
   )
 }
 
-/* ─── ClaySelect ───────────────────────────────────────────────── */
 interface ClaySelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
   id?: string
@@ -108,7 +104,6 @@ export function ClaySelect({ label, id, className = '', children, ...rest }: Cla
   )
 }
 
-/* ─── ClayBadge ────────────────────────────────────────────────── */
 export function ClayBadge({
   children,
   accent = 'lavender',
@@ -128,7 +123,6 @@ export function ClayBadge({
   )
 }
 
-/* ─── ClayToggle ───────────────────────────────────────────────── */
 export function ClayToggle({
   checked,
   onChange,
@@ -155,7 +149,6 @@ export function ClayToggle({
   )
 }
 
-/* ─── SectionHeading ───────────────────────────────────────────── */
 export function SectionHeading({
   children,
   action,
@@ -174,7 +167,6 @@ export function SectionHeading({
   )
 }
 
-/* ─── EmptyState ───────────────────────────────────────────────── */
 export function EmptyState({
   icon: Icon,
   emoji,
