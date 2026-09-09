@@ -164,8 +164,8 @@ export function Game2048({ onScore, soundEnabled }: GameComponentProps) {
       </div>
 
       <div
-        className="clay-inset grid grid-cols-4 gap-2 rounded-3xl p-2 touch-none select-none"
-        style={{ width: 'min(88vw, 360px)', height: 'min(88vw, 360px)' }}
+        className="clay-inset grid grid-cols-4 gap-1.5 sm:gap-2 rounded-3xl p-2 touch-none select-none w-full"
+        style={{ maxWidth: '300px', aspectRatio: '1/1' }}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >

@@ -260,13 +260,13 @@ export function Tetris({ onScore, soundEnabled }: GameComponentProps) {
       </div>
 
       <div className="flex items-start gap-3">
-        <div className="clay-inset rounded-2xl p-1">
+        <div className="clay-inset rounded-2xl p-1 flex justify-center">
           <canvas
             ref={canvasRef}
             width={COLS * CELL}
             height={ROWS * CELL}
-            className="rounded-xl"
-            style={{ width: 'min(56vw, 200px)', height: 'min(112vw, 400px)' }}
+            className="rounded-xl block w-full h-auto"
+            style={{ maxWidth: '190px', aspectRatio: `${COLS}/${ROWS}` }}
           />
         </div>
         <ClayCard accent="butter" className="hidden px-3 py-3 text-center sm:block">

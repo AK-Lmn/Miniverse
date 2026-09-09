@@ -197,8 +197,8 @@ export function Minesweeper({ onScore, soundEnabled }: GameComponentProps) {
       </div>
 
       <div
-        className="clay-inset grid gap-[3px] rounded-2xl p-2"
-        style={{ gridTemplateColumns: `repeat(${level.cols}, minmax(0,1fr))`, maxWidth: '100%', overflowX: 'auto' }}
+        className="clay-inset grid gap-[2px] sm:gap-[3px] rounded-2xl p-1.5 sm:p-2 max-w-full overflow-x-auto"
+        style={{ gridTemplateColumns: `repeat(${level.cols}, minmax(0, 1fr))` }}
       >
         {(board ?? Array.from({ length: level.rows * level.cols }, () => ({ mine: false, revealed: false, flagged: false, adjacent: 0 }))).map(
           (cell, i) => (
@@ -207,13 +207,13 @@ export function Minesweeper({ onScore, soundEnabled }: GameComponentProps) {
               onClick={() => reveal(i)}
               onContextMenu={(e) => toggleFlag(e, i)}
               aria-label={cell.revealed ? (cell.mine ? 'Mine' : `${cell.adjacent} adjacent mines`) : cell.flagged ? 'Flagged' : 'Hidden cell'}
-              className="flex h-6 w-6 items-center justify-center rounded-md text-[11px] font-bold sm:h-7 sm:w-7"
+              className="flex aspect-square w-5 sm:w-6 md:w-7 items-center justify-center rounded-[4px] sm:rounded-md text-[10px] sm:text-[11px] font-bold transition-transform active:scale-95"
               style={{
                 background: cell.revealed ? (cell.mine ? 'var(--color-peach-dark)' : 'var(--color-cream)') : 'var(--color-lavender)',
                 color: cell.adjacent ? numberColors[cell.adjacent] : undefined,
               }}
             >
-              {cell.revealed ? (cell.mine ? '💣' : cell.adjacent || '') : cell.flagged ? <Flag size={12} /> : ''}
+              {cell.revealed ? (cell.mine ? '💣' : cell.adjacent || '') : cell.flagged ? <Flag size={11} /> : ''}
             </button>
           )
         )}

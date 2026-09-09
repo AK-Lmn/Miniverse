@@ -349,14 +349,14 @@ export function SpaceInvaders({ onScore, soundEnabled }: GameComponentProps) {
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-2xl border-4 border-white/30 shadow-2xl">
+      <div className="relative w-full max-w-[480px] aspect-[480/520] overflow-hidden rounded-2xl border-4 border-white/30 shadow-2xl">
         <canvas
           ref={canvasRef}
           width={CANVAS_WIDTH}
           height={CANVAS_HEIGHT}
           onPointerMove={handlePointerMove}
           onClick={fireBullet}
-          className="touch-none bg-slate-950"
+          className="block h-full w-full touch-none bg-slate-950"
         />
 
         {gameState === 'playing' && (

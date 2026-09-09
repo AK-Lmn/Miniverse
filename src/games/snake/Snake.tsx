@@ -170,13 +170,13 @@ export function Snake({ onScore, soundEnabled }: GameComponentProps) {
         <p className="font-display text-xl font-bold text-ink">{score}</p>
       </ClayCard>
 
-      <div className="clay-inset touch-none rounded-3xl p-2" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+      <div className="clay-inset touch-none rounded-3xl p-2 w-full max-w-[300px] flex justify-center" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         <canvas
           ref={canvasRef}
           width={COLS * CELL}
           height={ROWS * CELL}
-          className="rounded-2xl"
-          style={{ width: 'min(90vw, 340px)', height: 'min(90vw, 340px)' }}
+          className="rounded-2xl block w-full h-auto"
+          style={{ maxWidth: '280px', aspectRatio: '1/1' }}
           role="img"
           aria-label="Snake game board"
         />
@@ -189,15 +189,7 @@ export function Snake({ onScore, soundEnabled }: GameComponentProps) {
         <ClayButton accent="mint" size="lg" onClick={resetGame}>Play Again</ClayButton>
       )}
 
-      <div className="grid grid-cols-3 gap-2 sm:hidden">
-        <span />
-        <ClayButton size="sm" onClick={() => setDir('up')} aria-label="Move up">↑</ClayButton>
-        <span />
-        <ClayButton size="sm" onClick={() => setDir('left')} aria-label="Move left">←</ClayButton>
-        <ClayButton size="sm" onClick={() => setDir('down')} aria-label="Move down">↓</ClayButton>
-        <ClayButton size="sm" onClick={() => setDir('right')} aria-label="Move right">→</ClayButton>
-      </div>
-      <p className="hidden text-xs text-ink-soft sm:block">Arrow keys or WASD to move</p>
+      <p className="text-xs text-ink-soft">Swipe, use D-pad below, or Arrow keys to steer</p>
     </div>
   )
 }

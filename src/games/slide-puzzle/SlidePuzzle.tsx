@@ -89,7 +89,7 @@ export function SlidePuzzle({ onScore }: GameComponentProps) {
             onClick={() => handleTile(idx)}
             disabled={value === 0 || won}
             aria-label={value === 0 ? 'Empty tile' : `Tile ${value}`}
-            className={`clay-btn flex h-16 items-center justify-center rounded-2xl font-display text-xl font-black transition-all ${
+            className={`clay-btn flex aspect-square w-full items-center justify-center rounded-2xl font-display text-lg sm:text-xl font-black transition-all ${
               value === 0 ? 'invisible' : 'text-ink hover:scale-105'
             }`}
           >

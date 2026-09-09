@@ -6,23 +6,23 @@
   --font-body: "Nunito", ui-rounded, "Segoe UI", sans-serif;
 
   --color-cream: #FBF7F2;
-  --color-cream-dark: #EEE5D6;
+  --color-cream-dark: #EDE4D4;
   --color-lavender: #E8DFFB;
-  --color-lavender-dark: #C4AEFE;
+  --color-lavender-dark: #B99EFA;
   --color-sky: #D4EDFB;
-  --color-sky-dark: #93CCF5;
+  --color-sky-dark: #82C4F3;
   --color-mint: #D2F5E4;
-  --color-mint-dark: #8FE0B8;
+  --color-mint-dark: #76D9A6;
   --color-peach: #FCE0D0;
-  --color-peach-dark: #F7A87C;
+  --color-peach-dark: #F59A68;
   --color-butter: #FDF0C0;
-  --color-butter-dark: #F5D96A;
+  --color-butter-dark: #F0CE4A;
   --color-pink: #FCDDE8;
-  --color-pink-dark: #F399BE;
-  --color-ink: #3B3554;
-  --color-ink-soft: #7A7092;
-  --color-plum: #6B4FBF;
-  --color-plum-dark: #4E3880;
+  --color-pink-dark: #EE87B2;
+  --color-ink: #2E2744;
+  --color-ink-soft: #554B6E;
+  --color-plum: #6546BD;
+  --color-plum-dark: #462E85;
   --color-surface: #FFFFFF;
 }
 
@@ -30,50 +30,52 @@
   color-scheme: light;
 }
 
+/* Authentic Dark Clay Theme (Molded Matte Charcoal) */
 [data-theme="cyber-dark"] {
   color-scheme: dark;
-  --color-cream: #090D18;
-  --color-cream-dark: #0E1525;
-  --color-lavender: #16143A;
-  --color-lavender-dark: #3730A3;
-  --color-sky: #0A2140;
-  --color-sky-dark: #0369A1;
-  --color-mint: #0A2B20;
-  --color-mint-dark: #047857;
-  --color-peach: #2E0E20;
-  --color-peach-dark: #BE123C;
-  --color-butter: #2B1C0C;
-  --color-butter-dark: #B45309;
-  --color-pink: #2E0E2A;
-  --color-pink-dark: #A21CAF;
-  --color-ink: #EEF2FF;
-  --color-ink-soft: #94A3B8;
-  --color-plum: #818CF8;
+  --color-cream: #121524;
+  --color-cream-dark: #191E33;
+  --color-lavender: #1E2340;
+  --color-lavender-dark: #4338CA;
+  --color-sky: #132742;
+  --color-sky-dark: #0284C7;
+  --color-mint: #113328;
+  --color-mint-dark: #059669;
+  --color-peach: #361928;
+  --color-peach-dark: #E11D48;
+  --color-butter: #332314;
+  --color-butter-dark: #D97706;
+  --color-pink: #361732;
+  --color-pink-dark: #C026D3;
+  --color-ink: #F3F4F6;
+  --color-ink-soft: #9CA3AF;
+  --color-plum: #938AF5;
   --color-plum-dark: #C7D2FE;
-  --color-surface: #111827;
+  --color-surface: #191E33;
 }
 
+/* Authentic Retro Neon Clay Theme (Fluorescent Molded Plasticine) */
 [data-theme="retro-arcade"] {
   color-scheme: dark;
-  --color-cream: #09071A;
-  --color-cream-dark: #130E30;
-  --color-lavender: #1C1040;
-  --color-lavender-dark: #4C1D95;
-  --color-sky: #0E2240;
-  --color-sky-dark: #22D3EE;
-  --color-mint: #0C2C22;
-  --color-mint-dark: #10B981;
-  --color-peach: #2E1020;
+  --color-cream: #0E0B22;
+  --color-cream-dark: #191438;
+  --color-lavender: #23164D;
+  --color-lavender-dark: #6366F1;
+  --color-sky: #122B4D;
+  --color-sky-dark: #38BDF8;
+  --color-mint: #10382D;
+  --color-mint-dark: #34D399;
+  --color-peach: #3B162B;
   --color-peach-dark: #FB7185;
-  --color-butter: #2E1E08;
+  --color-butter: #38240D;
   --color-butter-dark: #FBBF24;
-  --color-pink: #2E1028;
-  --color-pink-dark: #EC4899;
-  --color-ink: #F0FAFB;
-  --color-ink-soft: #94A3B8;
+  --color-pink: #381530;
+  --color-pink-dark: #F472B6;
+  --color-ink: #F8FAFC;
+  --color-ink-soft: #A5B4FC;
   --color-plum: #38BDF8;
-  --color-plum-dark: #7DD3FC;
-  --color-surface: #130E30;
+  --color-plum-dark: #818CF8;
+  --color-surface: #191438;
 }
 
 html, body, #root {
@@ -125,129 +127,169 @@ h1, h2, h3, h4, .font-display {
   background: var(--clay-bg, var(--color-cream));
   border-radius: var(--clay-radius, 28px);
   box-shadow:
-    10px 10px 22px rgba(130, 110, 170, 0.18),
-    -10px -10px 22px rgba(255, 255, 255, 0.90),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.65);
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
-  transition: transform 180ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 180ms ease;
+    8px 10px 24px rgba(110, 90, 150, 0.16),
+    -8px -8px 20px rgba(255, 255, 255, 0.92),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.85),
+    inset -2px -2px 4px rgba(110, 90, 150, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 180ms ease;
 }
 
 .clay:hover {
   box-shadow:
-    14px 14px 28px rgba(130, 110, 170, 0.22),
-    -14px -14px 28px rgba(255, 255, 255, 0.95),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.65);
+    12px 14px 28px rgba(110, 90, 150, 0.20),
+    -10px -10px 24px rgba(255, 255, 255, 0.96),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.90),
+    inset -2px -2px 4px rgba(110, 90, 150, 0.18);
 }
 
 [data-theme="cyber-dark"] .clay {
-  background: var(--clay-bg, #0E1525);
+  background: var(--clay-bg, #191E33);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.65),
-    0 2px 8px rgba(129, 140, 248, 0.12),
-    inset 0 1px 1px rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(129, 140, 248, 0.18);
-  color: #EEF2FF;
+    8px 12px 28px rgba(0, 0, 0, 0.65),
+    -4px -4px 16px rgba(45, 55, 85, 0.22),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.55);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  color: #F3F4F6;
 }
 
 [data-theme="cyber-dark"] .clay:hover {
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.70),
-    0 2px 12px rgba(129, 140, 248, 0.20),
-    inset 0 1px 1px rgba(255, 255, 255, 0.06);
-  border-color: rgba(129, 140, 248, 0.32);
+    10px 16px 34px rgba(0, 0, 0, 0.72),
+    -4px -4px 18px rgba(45, 55, 85, 0.28),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.20),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.55);
+  border-color: rgba(147, 138, 245, 0.30);
 }
 
 [data-theme="retro-arcade"] .clay {
-  background: var(--clay-bg, #130E30);
+  background: var(--clay-bg, #191438);
   box-shadow:
-    0 0 0 2px #38BDF8,
-    4px 4px 0 #EC4899,
-    8px 8px 24px rgba(0, 0, 0, 0.6);
-  border: none;
-  color: #F0FAFB;
+    6px 10px 24px rgba(0, 0, 0, 0.75),
+    -3px -3px 14px rgba(56, 189, 248, 0.18),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.35),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.65);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  color: #F8FAFC;
 }
 
 [data-theme="retro-arcade"] .clay:hover {
   box-shadow:
-    0 0 0 2px #38BDF8,
-    6px 6px 0 #EC4899,
-    10px 10px 30px rgba(0, 0, 0, 0.65);
+    8px 14px 28px rgba(0, 0, 0, 0.80),
+    -4px -4px 18px rgba(244, 114, 182, 0.25),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.45),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.65);
+  border-color: rgba(56, 189, 248, 0.60);
 }
 
 .clay-inset {
   box-shadow:
-    inset 6px 6px 14px rgba(130, 110, 170, 0.18),
-    inset -6px -6px 14px rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(150, 130, 180, 0.1);
+    inset 5px 5px 12px rgba(110, 90, 150, 0.20),
+    inset -5px -5px 12px rgba(255, 255, 255, 0.90);
+  border: 1.5px solid rgba(130, 110, 170, 0.12);
 }
 
 [data-theme="cyber-dark"] .clay-inset {
-  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background-color: rgba(9, 13, 24, 0.85) !important;
-  color: #EEF2FF !important;
+  box-shadow:
+    inset 4px 5px 14px rgba(0, 0, 0, 0.85),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(14, 17, 28, 0.85);
+  color: #F3F4F6;
 }
 
 [data-theme="retro-arcade"] .clay-inset {
-  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.8);
-  border: 1.5px solid #38BDF8;
-  background-color: #09071A !important;
-  color: #F0FAFB !important;
+  box-shadow:
+    inset 4px 5px 14px rgba(0, 0, 0, 0.90),
+    inset -2px -2px 8px rgba(56, 189, 248, 0.15);
+  border: 1.5px solid rgba(56, 189, 248, 0.40);
+  background-color: #0E0B22;
+  color: #F8FAFC;
 }
 
 .clay-btn {
   background: var(--clay-bg, var(--color-lavender));
   border-radius: 20px;
   box-shadow:
-    6px 6px 14px rgba(130, 110, 170, 0.26),
-    -6px -6px 14px rgba(255, 255, 255, 0.92),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.70);
+    5px 6px 14px rgba(110, 90, 150, 0.22),
+    -5px -5px 14px rgba(255, 255, 255, 0.92),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.80),
+    inset -1.5px -1.5px 3px rgba(110, 90, 150, 0.16);
   border: 1.5px solid rgba(255, 255, 255, 0.65);
-  transition: transform 140ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 140ms ease;
+  transition: transform 140ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 140ms ease;
   cursor: pointer;
 }
 
 .clay-btn:hover {
-  transform: translateY(-3px) scale(1.02);
+  transform: translateY(-2px) scale(1.02);
   box-shadow:
-    9px 9px 20px rgba(130, 110, 170, 0.30),
-    -9px -9px 20px rgba(255, 255, 255, 0.96),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.70);
+    7px 8px 18px rgba(110, 90, 150, 0.26),
+    -7px -7px 18px rgba(255, 255, 255, 0.96),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.85),
+    inset -1.5px -1.5px 3px rgba(110, 90, 150, 0.16);
 }
 
 .clay-btn:active {
-  transform: translateY(1px) scale(0.97);
+  transform: translateY(2px) scale(0.96);
   box-shadow:
-    inset 4px 4px 12px rgba(130, 110, 170, 0.32),
-    inset -4px -4px 12px rgba(255, 255, 255, 0.70);
+    inset 4px 4px 10px rgba(110, 90, 150, 0.32),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.70);
 }
 
 [data-theme="cyber-dark"] .clay-btn {
-  background: var(--clay-bg, #16143A);
+  background: var(--clay-bg, #1E2340);
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.55),
-    inset 0 1px 1px rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(129, 140, 248, 0.35);
-  color: #EEF2FF;
+    4px 6px 16px rgba(0, 0, 0, 0.60),
+    -2px -2px 8px rgba(45, 55, 85, 0.20),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.18),
+    inset -1.5px -1.5px 3px rgba(0, 0, 0, 0.50);
+  border: 1px solid rgba(147, 138, 245, 0.25);
+  color: #F3F4F6;
 }
 
 [data-theme="cyber-dark"] .clay-btn:hover {
   box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.60),
-    inset 0 1px 1px rgba(255, 255, 255, 0.12);
-  border-color: rgba(129, 140, 248, 0.55);
+    6px 8px 20px rgba(0, 0, 0, 0.65),
+    -2px -2px 10px rgba(45, 55, 85, 0.25),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.25),
+    inset -1.5px -1.5px 3px rgba(0, 0, 0, 0.50);
+  border-color: rgba(147, 138, 245, 0.45);
+}
+
+[data-theme="cyber-dark"] .clay-btn:active {
+  transform: translateY(2px) scale(0.96);
+  box-shadow:
+    inset 4px 4px 12px rgba(0, 0, 0, 0.90),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.05);
 }
 
 [data-theme="retro-arcade"] .clay-btn {
-  background: var(--clay-bg, #1C1040);
-  box-shadow: 3px 3px 0 #38BDF8;
-  border: 2px solid #EC4899;
-  color: #F0FAFB;
+  background: var(--clay-bg, #23164D);
+  box-shadow:
+    4px 6px 14px rgba(0, 0, 0, 0.70),
+    -2px -2px 8px rgba(56, 189, 248, 0.20),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.40),
+    inset -1.5px -1.5px 3px rgba(0, 0, 0, 0.60);
+  border: 1.5px solid rgba(244, 114, 182, 0.50);
+  color: #F8FAFC;
 }
 
 [data-theme="retro-arcade"] .clay-btn:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 5px 5px 0 #38BDF8;
+  box-shadow:
+    5px 8px 18px rgba(0, 0, 0, 0.75),
+    -3px -3px 10px rgba(56, 189, 248, 0.30),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.50),
+    inset -1.5px -1.5px 3px rgba(0, 0, 0, 0.60);
+  border-color: rgba(56, 189, 248, 0.80);
+}
+
+[data-theme="retro-arcade"] .clay-btn:active {
+  transform: translateY(2px) scale(0.96);
+  box-shadow:
+    inset 3px 3px 10px rgba(0, 0, 0, 0.90),
+    inset -2px -2px 6px rgba(244, 114, 182, 0.30);
 }
 
 .clay-btn:focus-visible,
@@ -256,6 +298,87 @@ button:focus-visible,
 [tabindex]:focus-visible {
   outline: 3px solid var(--color-plum);
   outline-offset: 3px;
+}
+
+/* Debossed Stamped Typography for hardware labels */
+.clay-stamp {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-soft);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="cyber-dark"] .clay-stamp,
+[data-theme="retro-arcade"] .clay-stamp {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.85);
+}
+
+/* Collectible Clay Cartridge Styling */
+.clay-cartridge {
+  position: relative;
+  border-radius: 26px;
+  box-shadow:
+    8px 10px 22px rgba(110, 90, 150, 0.18),
+    -8px -8px 18px rgba(255, 255, 255, 0.90),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.85),
+    inset -2px -2px 4px rgba(110, 90, 150, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 180ms ease;
+}
+
+.clay-cartridge:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    12px 16px 28px rgba(110, 90, 150, 0.22),
+    -10px -10px 22px rgba(255, 255, 255, 0.95),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.90),
+    inset -2px -2px 4px rgba(110, 90, 150, 0.18);
+}
+
+.clay-cartridge:active {
+  transform: translateY(2px) scale(0.97);
+  box-shadow:
+    inset 4px 4px 10px rgba(110, 90, 150, 0.30),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.70);
+}
+
+[data-theme="cyber-dark"] .clay-cartridge {
+  box-shadow:
+    8px 12px 28px rgba(0, 0, 0, 0.65),
+    -4px -4px 16px rgba(45, 55, 85, 0.22),
+    inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.55);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="cyber-dark"] .clay-cartridge:hover {
+  border-color: rgba(147, 138, 245, 0.35);
+}
+
+[data-theme="retro-arcade"] .clay-cartridge {
+  box-shadow:
+    6px 10px 24px rgba(0, 0, 0, 0.75),
+    -3px -3px 14px rgba(56, 189, 248, 0.18),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.35),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.65);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+/* Console Speaker Holes */
+.speaker-grill-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(110, 90, 150, 0.22);
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.30), 0 1px 0 rgba(255, 255, 255, 0.80);
+}
+
+[data-theme="cyber-dark"] .speaker-grill-dot,
+[data-theme="retro-arcade"] .speaker-grill-dot {
+  background: rgba(0, 0, 0, 0.70);
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.90), 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .clay-hero {
@@ -271,7 +394,7 @@ button:focus-visible,
     radial-gradient(ellipse 80% 60% at 20% 40%, rgba(55, 48, 163, 0.25) 0%, transparent 60%),
     radial-gradient(ellipse 60% 50% at 80% 20%, rgba(129, 140, 248, 0.15) 0%, transparent 55%),
     radial-gradient(ellipse 50% 60% at 60% 80%, rgba(56, 189, 248, 0.10) 0%, transparent 55%),
-    #090D18;
+    #121524;
 }
 
 [data-theme="retro-arcade"] .clay-hero {
@@ -279,20 +402,20 @@ button:focus-visible,
     radial-gradient(ellipse 80% 60% at 20% 40%, rgba(56, 189, 248, 0.15) 0%, transparent 60%),
     radial-gradient(ellipse 60% 50% at 80% 20%, rgba(236, 72, 153, 0.15) 0%, transparent 55%),
     radial-gradient(ellipse 50% 60% at 60% 80%, rgba(251, 191, 36, 0.10) 0%, transparent 55%),
-    #09071A;
+    #0E0B22;
 }
 
-.diff-easy   { background: var(--color-mint);   color: #1a6645; }
-.diff-medium { background: var(--color-butter); color: #7a5a00; }
-.diff-hard   { background: var(--color-peach);  color: #8c2c0c; }
+.diff-easy   { background: #D2F5E4; color: #0E5434; font-weight: 700; }
+.diff-medium { background: #FDE68A; color: #633B02; font-weight: 700; }
+.diff-hard   { background: #FED7AA; color: #7C2D12; font-weight: 700; }
 
-[data-theme="cyber-dark"] .diff-easy   { background: rgba(4,120,87,0.25);  color: #34D399; }
-[data-theme="cyber-dark"] .diff-medium { background: rgba(180,83,9,0.25);  color: #FCD34D; }
-[data-theme="cyber-dark"] .diff-hard   { background: rgba(190,18,60,0.25); color: #FDA4AF; }
+[data-theme="cyber-dark"] .diff-easy   { background: rgba(5,150,105,0.35); color: #6EE7B7; font-weight: 700; }
+[data-theme="cyber-dark"] .diff-medium { background: rgba(217,119,6,0.35); color: #FDE68A; font-weight: 700; }
+[data-theme="cyber-dark"] .diff-hard   { background: rgba(225,29,72,0.35); color: #FECDD3; font-weight: 700; }
 
-[data-theme="retro-arcade"] .diff-easy   { background: rgba(16,185,129,0.20); color: #10B981; }
-[data-theme="retro-arcade"] .diff-medium { background: rgba(251,191,36,0.20); color: #FBBF24; }
-[data-theme="retro-arcade"] .diff-hard   { background: rgba(251,113,133,0.20); color: #FB7185; }
+[data-theme="retro-arcade"] .diff-easy   { background: rgba(52,211,153,0.30); color: #6EE7B7; font-weight: 700; }
+[data-theme="retro-arcade"] .diff-medium { background: rgba(251,191,36,0.30); color: #FDE68A; font-weight: 700; }
+[data-theme="retro-arcade"] .diff-hard   { background: rgba(251,113,133,0.30); color: #FDA4AF; font-weight: 700; }
 
 @keyframes float-slow {
   0%, 100% { transform: translateY(0px) rotate(0deg); }

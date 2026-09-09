@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes } from 'react'
 import type { LucideIcon } from 'lucide-react'
+import { playSfx } from '../../lib/sound'
+import { soundStore } from '../../lib/storage'
 
 const ACCENT_VARS: Record<string, string> = {
   lavender: 'var(--color-lavender)',
@@ -28,9 +30,32 @@ export function ClayCard({ accent = 'cream', className = '', style, children, ..
   )
 }
 
+export function ClayCartridge({ accent = 'cream', className = '', style, children, ...rest }: ClayCardProps) {
+  return (
+    <div
+      className={`clay-cartridge ${className}`}
+      style={{ ['--clay-bg' as string]: ACCENT_VARS[accent], ...style }}
+      {...rest}
+    >
+      {/* Top cartridge grip notch */}
+      <div className="pointer-events-none absolute -top-1.5 left-1/2 flex -translate-x-1/2 items-center gap-1">
+        <div className="h-1.5 w-3 rounded-t bg-black/10 dark:bg-white/10" />
+        <div className="h-1.5 w-6 rounded-t bg-black/15 dark:bg-white/15" />
+        <div className="h-1.5 w-3 rounded-t bg-black/10 dark:bg-white/10" />
+      </div>
+      {children}
+    </div>
+  )
+}
+
+export function ClayStamp({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return <span className={`clay-stamp ${className}`}>{children}</span>
+}
+
 interface ClayButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   accent?: keyof typeof ACCENT_VARS
   size?: 'sm' | 'md' | 'lg'
+  disableSound?: boolean
 }
 
 const SIZE_CLASSES: Record<string, string> = {
@@ -42,13 +67,23 @@ const SIZE_CLASSES: Record<string, string> = {
 export function ClayButton({
   accent = 'lavender',
   size = 'md',
+  disableSound = false,
   className = '',
   style,
+  onClick,
   children,
   ...rest
 }: ClayButtonProps) {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!disableSound) {
+      playSfx('click', soundStore.get())
+    }
+    onClick?.(e)
+  }
+
   return (
     <button
+      onClick={handleClick}
       className={`clay-btn inline-flex items-center justify-center font-display font-semibold text-ink ${SIZE_CLASSES[size]} ${className} disabled:opacity-50 disabled:pointer-events-none`}
       style={{ ['--clay-bg' as string]: ACCENT_VARS[accent], ...style }}
       {...rest}
@@ -134,16 +169,31 @@ export function ClayToggle({
 }) {
   return (
     <button
+      type="button"
       role="switch"
       aria-checked={checked}
       aria-label={label}
-      onClick={() => onChange(!checked)}
-      className="clay-inset relative h-8 w-14 rounded-full transition-colors"
-      style={{ background: checked ? 'var(--color-mint-dark)' : 'var(--color-cream-dark)' }}
+      onClick={() => {
+        playSfx('click', soundStore.get())
+        onChange(!checked)
+      }}
+      className={`relative inline-flex h-8 w-14 shrink-0 cursor-pointer items-center rounded-full p-1 transition-colors duration-200 ease-in-out clay-inset ${
+        checked ? '!bg-emerald-500' : '!bg-slate-600/50 dark:!bg-slate-800'
+      }`}
+      style={{
+        boxShadow: checked
+          ? 'inset 2px 2px 6px rgba(0, 0, 0, 0.3), 0 0 10px rgba(16, 185, 129, 0.4)'
+          : undefined,
+      }}
     >
       <span
-        className="absolute top-1 h-6 w-6 rounded-full bg-white shadow-md transition-transform"
-        style={{ transform: checked ? 'translateX(28px)' : 'translateX(4px)' }}
+        aria-hidden="true"
+        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-lg transition-transform duration-200 ease-in-out ${
+          checked ? 'translate-x-6' : 'translate-x-0'
+        }`}
+        style={{
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
+        }}
       />
     </button>
   )

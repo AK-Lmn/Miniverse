@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
-import { Home, Gamepad2, Heart, Trophy, User, Settings } from 'lucide-react'
+import { NavLink, useLocation } from 'react-router-dom'
+import { Home, Gamepad2, Heart, Trophy, User, Settings, ChevronUp } from 'lucide-react'
 import { LogoMark, Wordmark } from '../ui/Logo'
 import { SettingsModal } from '../ui/SettingsModal'
 import { themeStore } from '../../lib/storage'
+import { playSfx } from '../../lib/sound'
 
 const LINKS = [
   { to: '/', label: 'Home', icon: Home },
@@ -22,47 +23,54 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40">
-        <div className="border-b border-white/30 bg-[var(--color-cream)]/80 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+      <header className="sticky top-2 z-40 px-3 sm:px-6">
+        <div className="clay mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-2.5 backdrop-blur-xl transition-all" style={{ '--clay-bg': 'color-mix(in srgb, var(--color-cream) 88%, white 12%)' } as React.CSSProperties}>
 
-            <NavLink to="/" className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-80" aria-label="MiniVerse home">
-              <LogoMark size={32} />
-              <Wordmark className="text-xl font-extrabold tracking-tight" />
-            </NavLink>
+          <NavLink
+            to="/"
+            onClick={() => playSfx('click', true)}
+            className="flex shrink-0 items-center gap-2.5 transition-transform hover:scale-105 active:scale-95"
+            aria-label="MiniVerse home"
+          >
+            <LogoMark size={34} />
+            <Wordmark className="text-xl font-black tracking-tight" />
+          </NavLink>
 
-            <nav className="hidden flex-1 items-center justify-center md:flex" aria-label="Main navigation">
-              <div className="clay-inset flex items-center gap-1 rounded-full px-1.5 py-1.5">
-                {LINKS.map(({ to, label, icon: Icon }) => (
-                  <NavLink
-                    key={to}
-                    to={to}
-                    end={to === '/'}
-                    className={({ isActive }) =>
-                      `flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-200 ${
-                        isActive
-                          ? 'clay bg-[var(--color-lavender)] text-ink shadow-sm'
-                          : 'text-ink-soft hover:bg-white/40 hover:text-ink'
-                      }`
-                    }
-                  >
-                    <Icon size={15} aria-hidden="true" />
-                    {label}
-                  </NavLink>
-                ))}
-              </div>
-            </nav>
+          <nav className="hidden flex-1 items-center justify-center md:flex" aria-label="Main navigation">
+            <div className="clay-inset flex items-center gap-1.5 rounded-full p-1">
+              {LINKS.map(({ to, label, icon: Icon }) => (
+                <NavLink
+                  key={to}
+                  to={to}
+                  end={to === '/'}
+                  onClick={() => playSfx('click', true)}
+                  className={({ isActive }) =>
+                    `flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-bold transition-all duration-180 ${
+                      isActive
+                        ? 'clay bg-[var(--color-lavender)] text-ink scale-102 shadow-sm'
+                        : 'text-ink-soft hover:bg-white/50 hover:text-ink active:scale-95'
+                    }`
+                  }
+                >
+                  <Icon size={15} aria-hidden="true" strokeWidth={2.2} />
+                  {label}
+                </NavLink>
+              ))}
+            </div>
+          </nav>
 
-            <button
-              onClick={() => setSettingsOpen(true)}
-              className="clay-btn flex shrink-0 items-center gap-2 px-3 py-1.5 text-xs font-bold text-ink"
-              aria-label="Open settings"
-              title="Settings"
-            >
-              <Settings size={15} aria-hidden="true" />
-              <span className="hidden sm:inline">Settings</span>
-            </button>
-          </div>
+          <button
+            onClick={() => {
+              playSfx('click', true)
+              setSettingsOpen(true)
+            }}
+            className="clay-btn flex shrink-0 items-center gap-2 px-3 py-1.5 text-xs font-bold text-ink"
+            aria-label="Open settings"
+            title="Settings"
+          >
+            <Settings size={15} aria-hidden="true" />
+            <span className="hidden sm:inline">Settings</span>
+          </button>
         </div>
       </header>
 
@@ -72,31 +80,64 @@ export function Navbar() {
 }
 
 export function MobileTabBar() {
+  const location = useLocation()
+  const isPlayingGame = location.pathname.startsWith('/games/') && location.pathname !== '/games'
+  const [collapsed, setCollapsed] = useState(false)
+
+  // Auto-collapse when entering game view
+  useEffect(() => {
+    if (isPlayingGame) {
+      setCollapsed(true)
+    } else {
+      setCollapsed(false)
+    }
+  }, [isPlayingGame])
+
+  if (isPlayingGame && collapsed) {
+    return (
+      <div className="fixed bottom-3 right-3 z-40 md:hidden">
+        <button
+          onClick={() => {
+            playSfx('click', true)
+            setCollapsed(false)
+          }}
+          className="clay-btn flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold text-ink shadow-lg"
+          aria-label="Show navigation dock"
+        >
+          <Gamepad2 size={14} aria-hidden="true" />
+          <span>Menu</span>
+          <ChevronUp size={14} aria-hidden="true" />
+        </button>
+      </div>
+    )
+  }
+
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-40 md:hidden"
+      className="fixed inset-x-0 bottom-2 z-40 px-3 md:hidden transition-transform duration-300"
       aria-label="Main navigation"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
-      <div className="border-t border-white/30 bg-[var(--color-cream)]/92 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-stretch justify-around px-1 py-1">
+      <div className="clay mx-auto max-w-md backdrop-blur-xl px-2 py-1.5" style={{ '--clay-bg': 'color-mix(in srgb, var(--color-cream) 92%, white 8%)' } as React.CSSProperties}>
+        <div className="flex items-stretch justify-around gap-1">
           {LINKS.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
               end={to === '/'}
+              onClick={() => playSfx('click', true)}
               className={({ isActive }) =>
-                `flex flex-1 flex-col items-center gap-0.5 rounded-2xl px-1 py-2 text-[10px] font-bold transition-all duration-200 ${
+                `flex flex-1 flex-col items-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold transition-all duration-180 ${
                   isActive
-                    ? 'bg-[var(--color-lavender)] text-ink'
-                    : 'text-ink-soft hover:text-ink'
+                    ? 'clay bg-[var(--color-lavender)] text-ink scale-105'
+                    : 'text-ink-soft hover:text-ink active:scale-95'
                 }`
               }
             >
               {({ isActive }) => (
                 <>
-                  <Icon size={22} aria-hidden="true" strokeWidth={isActive ? 2.5 : 1.8} />
-                  {label}
+                  <Icon size={20} aria-hidden="true" strokeWidth={isActive ? 2.5 : 1.8} />
+                  <span>{label}</span>
                 </>
               )}
             </NavLink>

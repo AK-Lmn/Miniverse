@@ -157,15 +157,15 @@ export function FlappyBird({ onScore, soundEnabled }: GameComponentProps) {
 
       <button
         onClick={flap}
-        className="clay-inset touch-none overflow-hidden rounded-3xl p-1"
+        className="clay-inset touch-none overflow-hidden rounded-3xl p-1 w-full max-w-[290px] flex justify-center"
         aria-label="Flap"
       >
         <canvas
           ref={canvasRef}
           width={WIDTH}
           height={HEIGHT}
-          className="rounded-2xl"
-          style={{ width: 'min(85vw, 300px)', height: 'min(112vw, 396px)' }}
+          className="rounded-2xl block w-full h-auto"
+          style={{ maxWidth: '280px', aspectRatio: `${WIDTH}/${HEIGHT}` }}
         />
       </button>
 

@@ -231,9 +231,9 @@ export function Wordle({ onScore }: GameComponentProps) {
         </div>
       )}
 
-      <div className="flex flex-col gap-1.5 w-full mt-1">
+      <div className="flex flex-col gap-1.5 w-full max-w-[460px] mt-1 px-1">
         {KEYBOARD_ROWS.map((row, rIdx) => (
-          <div key={rIdx} className="flex justify-center gap-1 sm:gap-1.5">
+          <div key={rIdx} className="flex justify-center gap-1 sm:gap-1.5 w-full">
             {row.map((k) => {
               const keyStatus = keyStatuses[k]
               let keyBg = 'clay-btn text-ink bg-white/70 dark:bg-white/10'
@@ -253,8 +253,10 @@ export function Wordle({ onScore }: GameComponentProps) {
                   key={k}
                   type="button"
                   onClick={() => handleKey(k)}
-                  className={`h-11 sm:h-12 flex items-center justify-center rounded-lg text-xs sm:text-sm font-bold active:scale-95 transition-all ${
-                    isActionKey ? 'px-2.5 sm:px-3 text-[11px]' : 'w-8 sm:w-10'
+                  className={`h-10 sm:h-12 flex items-center justify-center rounded-lg font-bold active:scale-95 transition-all ${
+                    isActionKey
+                      ? 'flex-[1.5] max-w-[54px] min-w-0 px-1 text-[10px] sm:text-xs'
+                      : 'flex-1 max-w-[36px] min-w-0 text-xs sm:text-sm'
                   } ${keyBg}`}
                 >
                   {k === 'BACKSPACE' ? (

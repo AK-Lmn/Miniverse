@@ -314,13 +314,13 @@ export function Breakout({ onScore, soundEnabled }: GameComponentProps) {
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-2xl border-4 border-white/30 shadow-2xl">
+      <div className="relative w-full max-w-[480px] aspect-[480/520] overflow-hidden rounded-2xl border-4 border-white/30 shadow-2xl">
         <canvas
           ref={canvasRef}
           width={CANVAS_WIDTH}
           height={CANVAS_HEIGHT}
           onPointerMove={handlePointerMove}
-          className="touch-none bg-slate-900"
+          className="block h-full w-full touch-none bg-slate-900"
         />
 
         {gameState === 'idle' && (

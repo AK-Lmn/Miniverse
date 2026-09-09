@@ -157,7 +157,7 @@ export function EndlessRunner({ onScore }: GameComponentProps) {
         ref={canvasRef}
         width={W * dpr}
         height={H * dpr}
-        style={{ width: W, height: H, borderRadius: 16, background: 'var(--color-cream)', cursor: 'pointer' }}
+        style={{ width: '100%', maxWidth: `${W}px`, height: 'auto', aspectRatio: `${W}/${H}`, borderRadius: 16, background: 'var(--color-cream)', cursor: 'pointer' }}
         onClick={phase === 'idle' ? () => setPhase('playing') : phase === 'playing' ? jump : undefined}
         aria-label="Endless runner game"
       />

@@ -92,7 +92,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       >
         <div className="clay animate-pop-in w-full max-w-md" style={{ '--clay-bg': 'var(--color-cream)' } as React.CSSProperties}>
 
-          <div className="flex items-center justify-between border-b border-white/30 px-6 py-4">
+          <div className="flex items-center justify-between border-b border-black/5 dark:border-white/10 px-6 py-4">
             <h2 className="font-display text-xl font-bold text-ink">Settings</h2>
             <button
               onClick={onClose}
@@ -115,7 +115,9 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     key={id}
                     onClick={() => handleTheme(id)}
                     className={`clay-btn flex flex-col items-center gap-1.5 px-2 py-3 text-xs font-bold text-ink transition-all ${
-                      theme === id ? 'ring-2 ring-[var(--color-plum)]' : ''
+                      theme === id
+                        ? 'ring-2 ring-[var(--color-plum)] font-extrabold !bg-white/10 dark:!bg-black/30 shadow-inner'
+                        : 'opacity-80 hover:opacity-100'
                     }`}
                     aria-pressed={theme === id}
                   >
@@ -136,7 +138,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 onChange={(e) => handleNickname(e.target.value)}
                 placeholder="Enter a nickname…"
                 maxLength={16}
-                className="clay-inset w-full rounded-2xl bg-white/60 px-4 py-2.5 font-display font-bold text-ink outline-none placeholder:font-normal"
+                className="clay-inset w-full rounded-2xl bg-black/5 dark:bg-black/30 px-4 py-2.5 font-display font-bold text-ink outline-none placeholder:font-normal placeholder:text-ink-soft/60 focus:ring-2 focus:ring-[var(--color-plum)]"
               />
             </div>
 
@@ -168,8 +170,17 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             </div>
           </div>
 
-          <div className="border-t border-white/30 px-6 py-4">
-            <ClayButton accent="mint" className="w-full justify-center" onClick={onClose}>
+          <div className="border-t border-black/5 dark:border-white/10 px-6 py-4">
+            <ClayButton
+              accent="mint"
+              className="w-full justify-center text-base font-extrabold !text-white shadow-lg"
+              style={{
+                background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                color: '#FFFFFF',
+                boxShadow: '0 4px 14px rgba(16, 185, 129, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.5)',
+              }}
+              onClick={onClose}
+            >
               Done
             </ClayButton>
           </div>

@@ -181,7 +181,7 @@ export function Pong({ onScore, soundEnabled }: GameComponentProps) {
 
       <div
         ref={containerRef}
-        className="clay-inset touch-none rounded-3xl p-1"
+        className="clay-inset touch-none rounded-3xl p-1 w-full max-w-[300px] flex justify-center"
         onMouseMove={(e) => status === 'playing' && movePlayer(e.clientY)}
         onTouchMove={(e) => { status === 'playing' && movePlayer(e.touches[0].clientY); e.preventDefault() }}
       >
@@ -189,8 +189,8 @@ export function Pong({ onScore, soundEnabled }: GameComponentProps) {
           ref={canvasRef}
           width={WIDTH}
           height={HEIGHT}
-          className="rounded-2xl"
-          style={{ width: 'min(85vw, 300px)', height: 'min(101vw, 356px)' }}
+          className="rounded-2xl block w-full h-auto"
+          style={{ maxWidth: '280px', aspectRatio: `${WIDTH}/${HEIGHT}` }}
         />
       </div>
 

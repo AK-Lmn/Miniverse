@@ -397,7 +397,7 @@ export function Sudoku({ onScore }: GameComponentProps) {
                     key={`${r}-${c}`}
                     type="button"
                     onClick={() => setSelected([r, c])}
-                    className={`w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center text-base sm:text-lg select-none transition-colors relative ${rightBorder} ${bottomBorder} ${bgClass}`}
+                    className={`w-7 h-7 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center text-sm sm:text-lg select-none transition-colors relative ${rightBorder} ${bottomBorder} ${bgClass}`}
                   >
                     {cellVal !== 0 ? (
                       <span
@@ -415,7 +415,7 @@ export function Sudoku({ onScore }: GameComponentProps) {
                       </span>
                     ) : (
 
-                      <div className="grid grid-cols-3 grid-rows-3 w-full h-full p-0.5 pointer-events-none text-[8px] sm:text-[9px] leading-none text-ink-soft/70">
+                      <div className="grid grid-cols-3 grid-rows-3 w-full h-full p-0.5 pointer-events-none text-[7px] sm:text-[9px] leading-none text-ink-soft/70">
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
                           <div key={n} className="flex items-center justify-center font-mono">
                             {cellNotes.includes(n) ? n : ''}
@@ -463,13 +463,13 @@ export function Sudoku({ onScore }: GameComponentProps) {
         </ClayButton>
       </div>
 
-      <div className="grid grid-cols-9 gap-1.5 w-full max-w-md px-1">
+      <div className="grid grid-cols-9 gap-1 sm:gap-1.5 w-full max-w-md px-1">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
           <button
             key={num}
             type="button"
             onClick={() => handleInputNumber(num)}
-            className="clay-btn h-11 sm:h-12 flex items-center justify-center text-lg sm:text-xl font-bold text-ink active:scale-95 transition-transform"
+            className="clay-btn h-9 sm:h-12 flex items-center justify-center text-sm sm:text-xl font-bold text-ink active:scale-95 transition-transform p-0"
           >
             {num}
           </button>

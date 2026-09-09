@@ -6,7 +6,7 @@ import {
 } from 'lucide-react'
 import { GAMES, CATEGORIES, getGameById } from '../data/games'
 import { GameCard } from '../components/games/GameCard'
-import { ClayButton, ClayCard, EmptyState, SectionHeading } from '../components/ui/Clay'
+import { ClayButton, ClayCard, SectionHeading } from '../components/ui/Clay'
 import { recentlyPlayedStore, computeAggregateStats } from '../lib/storage'
 import { getTodaysChallenge } from '../lib/dailyChallenge'
 
@@ -77,15 +77,15 @@ export function HomePage() {
           </p>
 
           <div className="animate-slide-up mt-1 flex flex-wrap justify-center gap-3" style={{ animationDelay: '240ms' }}>
-            <Link to={`/games/${GAMES[0].id}`}>
+            <Link to={`/games/${GAMES[Math.floor(Math.random() * GAMES.length)].id}`}>
               <ClayButton accent="mint" size="lg">
-                <Gamepad2 size={20} aria-hidden="true" />
-                Play Now
+                <Dices size={20} aria-hidden="true" />
+                Random Cartridge
               </ClayButton>
             </Link>
             <Link to="/games">
               <ClayButton accent="lavender" size="lg">
-                Explore Games
+                Explore Cartridges
                 <ArrowRight size={18} aria-hidden="true" />
               </ClayButton>
             </Link>
@@ -102,7 +102,7 @@ export function HomePage() {
               className="flex flex-col items-center gap-5 px-6 py-6 sm:flex-row sm:justify-between"
             >
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/50">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/50 dark:bg-black/20">
                   {challengeGame.icon
                     ? <challengeGame.icon size={28} className="text-plum" aria-hidden="true" />
                     : <span className="text-3xl" aria-hidden="true">{challengeGame.emoji}</span>
@@ -113,15 +113,15 @@ export function HomePage() {
                     📅 Today&apos;s Challenge
                   </p>
                   <h3 className="font-display text-xl font-bold text-ink">{challengeGame.name}</h3>
-                  <p className="text-sm text-ink-soft">{challenge.targetLabel}</p>
+                  <p className="text-sm font-semibold text-ink-soft">{challenge.targetLabel}</p>
                   {challenge.bestAttempt !== undefined && (
-                    <p className="text-xs text-ink-soft">Best: {challenge.bestAttempt}</p>
+                    <p className="text-xs font-bold text-ink-soft">Best: {challenge.bestAttempt}</p>
                   )}
                 </div>
               </div>
               <Link to={`/games/${challengeGame.id}`} className="shrink-0">
                 <ClayButton accent={challenge.completed ? 'mint' : 'peach'} size="lg">
-                  {challenge.completed ? '✓ Completed' : 'Take the Challenge'}
+                  {challenge.completed ? '✓ Completed' : 'Slot in Cartridge'}
                 </ClayButton>
               </Link>
             </ClayCard>
@@ -131,40 +131,29 @@ export function HomePage() {
         <section>
           <SectionHeading
             action={
-              <Link to="/games" className="flex items-center gap-1 text-sm font-semibold text-plum transition-opacity hover:opacity-70">
-                See all <ArrowRight size={14} aria-hidden="true" />
+              <Link to="/games" className="flex items-center gap-1 text-sm font-bold text-plum transition-opacity hover:opacity-70">
+                See all cartridges <ArrowRight size={14} aria-hidden="true" />
               </Link>
             }
           >
-            Featured Games
+            Featured Cartridges
           </SectionHeading>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
             {featured.slice(0, 6).map((g) => g && <GameCard key={g.id} game={g} />)}
           </div>
         </section>
 
-        <section>
-          <SectionHeading>Continue Playing</SectionHeading>
-          {recent.length ? (
+        {recent.length > 0 && (
+          <section>
+            <SectionHeading>Continue Playing</SectionHeading>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {recent.map((id) => {
                 const g = getGameById(id)
                 return g ? <GameCard key={g.id} game={g} /> : null
               })}
             </div>
-          ) : (
-            <EmptyState
-              icon={Gamepad2}
-              title="Nothing played yet"
-              message="Jump into a game and it'll appear here so you can pick right back up."
-              action={
-                <Link to="/games">
-                  <ClayButton accent="mint">Browse Games</ClayButton>
-                </Link>
-              }
-            />
-          )}
-        </section>
+          </section>
+        )}
 
         <section>
           <SectionHeading>Categories</SectionHeading>
